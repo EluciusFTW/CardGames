@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using CardGames.Core.Cards.French;
 using CardGames.Core.Deck.French;
 using CardGames.Core.Random;
@@ -31,13 +32,30 @@ namespace CardGames.Core.Dealer
                 .CardsLeftOfValue(value)
                 .ToArray();
 
-            if (!availableCards.Any())
+            return TryDealCardFrom(availableCards, out card);
+        }
+        
+        public bool TryDealCardOfSymbol(Symbol symbol, out Card card)
+            => TryDealCardOfValue((int)symbol, out card);
+        
+        public bool TryDealCardOfSuit(Suit suit, out Card card)
+        {
+            var availableCards = SpecificDeck
+                .CardsLeftOfSuit(suit)
+                .ToArray();
+            
+            return TryDealCardFrom(availableCards, out card);
+        }
+        
+        private bool TryDealCardFrom(Card[] cards, out Card card)
+        {
+            if (!cards.Any())
             {
                 card = default;
                 return false;
             }
 
-            card = availableCards[NumberGenerator.Next(availableCards.Length)];
+            card = cards[NumberGenerator.Next(cards.Length)];
             _ = Deck.GetSpecific(card);
             return true;
         }
