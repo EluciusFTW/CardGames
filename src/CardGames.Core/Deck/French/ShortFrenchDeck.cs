@@ -1,17 +1,22 @@
-﻿using EluciusFTW.CardGames.Core.Cards.French;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using CardGames.Core.Cards.French;
 
-namespace EluciusFTW.CardGames.Core.Deck.French
+namespace CardGames.Core.Deck.French
 {
     public class ShortFrenchDeck : FrenchDeck
     {
         private readonly IReadOnlyCollection<Card> _cards
             = Enumerable
                 .Range(6, 9)
-                .SelectMany(value => GetAllsuits(value))
+                .SelectMany(CardsOfValue)
                 .ToList();
 
+        private static IEnumerable<Card> CardsOfValue(int value)
+            => Enumerable
+                .Range(0, 4)
+                .Select(suit => new Card((Suit)suit, value));
+        
         protected override IReadOnlyCollection<Card> Cards() => _cards;
     }
 }

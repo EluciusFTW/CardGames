@@ -1,11 +1,11 @@
-﻿using EluciusFTW.CardGames.Core.Cards.French;
-using EluciusFTW.CardGames.Core.Dealer;
-using EluciusFTW.CardGames.Core.Extensions;
+﻿using System.Linq;
+using CardGames.Core.Cards.French;
+using CardGames.Core.Dealer;
+using CardGames.Core.Extensions;
 using FluentAssertions;
-using System.Linq;
 using Xunit;
 
-namespace EluciusFTW.CardGames.Core.Tests.Dealer
+namespace CardGames.Core.Tests.Dealer
 {
     public class FrenchDeckDealerTests
     {

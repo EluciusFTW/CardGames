@@ -1,13 +1,13 @@
-﻿using EluciusFTW.CardGames.Core.Cards.French;
-using EluciusFTW.CardGames.Core.Deck.French;
-using EluciusFTW.CardGames.Core.Random;
-using System.Linq;
+﻿using System.Linq;
+using CardGames.Core.Cards.French;
+using CardGames.Core.Deck.French;
+using CardGames.Core.Random;
 
-namespace EluciusFTW.CardGames.Core.Dealer
+namespace CardGames.Core.Dealer
 {
     public class FrenchDeckDealer : Dealer<Card>
     {
-        private FrenchDeck _specificDeck => Deck as FrenchDeck;
+        private FrenchDeck SpecificDeck => Deck as FrenchDeck;
 
         public FrenchDeckDealer(FrenchDeck deck) 
             : base(deck)
@@ -27,7 +27,7 @@ namespace EluciusFTW.CardGames.Core.Dealer
 
         public bool TryDealCardOfValue(int value, out Card card)
         {
-            var availableCards = _specificDeck
+            var availableCards = SpecificDeck
                 .CardsLeftOfValue(value)
                 .ToArray();
 

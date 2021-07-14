@@ -1,8 +1,7 @@
-﻿using EluciusFTW.CardGames.Core.Cards.French;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace EluciusFTW.CardGames.Core.Cards.French.Extensions
+namespace CardGames.Core.Cards.French.Extensions
 {
     public static class CardsExtensions
     {

@@ -1,10 +1,10 @@
-﻿using EluciusFTW.CardGames.Core.Cards.French;
-using EluciusFTW.CardGames.Core.Deck.French;
+﻿using System;
+using CardGames.Core.Cards.French;
+using CardGames.Core.Deck.French;
 using FluentAssertions;
-using System;
 using Xunit;
 
-namespace EluciusFTW.CardGames.Core.Tests.Deck
+namespace CardGames.Core.Tests.Deck
 {
     public class FrenchDeckTests
     {   

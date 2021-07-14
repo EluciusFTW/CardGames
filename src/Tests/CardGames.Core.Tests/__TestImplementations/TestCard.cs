@@ -1,4 +1,4 @@
-﻿namespace EluciusFTW.CardGames.Core.Tests.TestImplementations
+﻿namespace CardGames.Core.Tests.__TestImplementations
 {
     internal readonly struct TestCard
     {

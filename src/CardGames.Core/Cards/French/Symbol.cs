@@ -1,4 +1,4 @@
-﻿namespace EluciusFTW.CardGames.Core.Cards.French
+﻿namespace CardGames.Core.Cards.French
 {
     public enum Symbol
     {

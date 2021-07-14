@@ -1,12 +1,12 @@
 ﻿using System;
-using EluciusFTW.CardGames.Core.Tests.TestImplementations;
-using EluciusFTW.CardGames.Core.Cards.Deck;
-using EluciusFTW.CardGames.Core.Random;
+using CardGames.Core.Deck;
+using CardGames.Core.Random;
+using CardGames.Core.Tests.__TestImplementations;
 using FluentAssertions;
 using NSubstitute;
 using Xunit;
 
-namespace EluciusFTW.CardGames.Core.Tests.Dealer
+namespace CardGames.Core.Tests.Dealer
 {
     public class DealerTests
     {

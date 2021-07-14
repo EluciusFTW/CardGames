@@ -1,8 +1,8 @@
-﻿using EluciusFTW.CardGames.Core;
-using EluciusFTW.CardGames.Core.Cards.Deck;
-using EluciusFTW.CardGames.Core.Random;
+﻿using CardGames.Core.Dealer;
+using CardGames.Core.Deck;
+using CardGames.Core.Random;
 
-namespace EluciusFTW.CardGames.Core.Tests.TestImplementations
+namespace CardGames.Core.Tests.__TestImplementations
 {
     internal class TestDealer : Dealer<TestCard>
     {

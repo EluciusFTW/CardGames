@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace EluciusFTW.CardGames.Core.Cards.French.Extensions
+namespace CardGames.Core.Cards.French.Extensions
 {
     public static class MappingExtensions
     {

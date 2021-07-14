@@ -1,11 +1,11 @@
-﻿namespace EluciusFTW.CardGames.Core.Cards.Deck
+﻿namespace CardGames.Core.Deck
 {
-    public interface IDeck<CardKind> 
-        where CardKind : struct
+    public interface IDeck<TCardKind> 
+        where TCardKind : struct
     {
         int NumberOfCardsLeft();
-        CardKind GetFromRemaining(int index);
-        CardKind GetSpecific(CardKind specificCard);
+        TCardKind GetFromRemaining(int index);
+        TCardKind GetSpecific(TCardKind specificCard);
         void Reset();
     };
 }

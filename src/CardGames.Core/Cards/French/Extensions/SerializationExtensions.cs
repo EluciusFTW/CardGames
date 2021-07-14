@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace EluciusFTW.CardGames.Core.Cards.French.Extensions
+namespace CardGames.Core.Cards.French.Extensions
 {
     public static class SerializationExtensions
     {
-        private static readonly string[] CardDeck = new[]
+        private static readonly string[] CardDeck = 
         {
             "2h", "3h", "4h", "5h", "6h", "7h", "8h", "9h", "Th", "Jh", "Qh", "Kh", "Ah",
             "2d", "3d", "4d", "5d", "6d", "7d", "8d", "9d", "Td", "Jd", "Qd", "Kd", "Ad",
@@ -18,10 +18,10 @@ namespace EluciusFTW.CardGames.Core.Cards.French.Extensions
             => (int)card.Suit * 13 + card.Value - 2;
         
         private static Suit ToSuit(this int hash) 
-            => (hash / 13).ToSuit();
+            => (Suit)(hash / 13);
 
         private static int ToValue(this int hash) 
-            => hash % 4 + 2;
+            => hash % 13 + 2;
 
         public static string ToShortString(this Card card) 
             => CardDeck[Hash(card)];

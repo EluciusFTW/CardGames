@@ -1,29 +1,29 @@
-﻿using EluciusFTW.CardGames.Core.Cards.Deck;
-using EluciusFTW.CardGames.Core.Random;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CardGames.Core.Deck;
+using CardGames.Core.Random;
 
-namespace EluciusFTW.CardGames.Core
+namespace CardGames.Core.Dealer
 {
-    public class Dealer<TCard> where TCard : struct
+    public class Dealer<TCardKind> where TCardKind : struct
     {
-        protected IDeck<TCard> Deck { get; }
+        protected IDeck<TCardKind> Deck { get; }
         protected IRandomNumberGenerator NumberGenerator { get; }
 
-        public Dealer(IDeck<TCard> deck)
+        public Dealer(IDeck<TCardKind> deck)
         {
             Deck = deck;
             NumberGenerator = new StandardRandomNumberGenerator();
         }
 
-        public Dealer(IDeck<TCard> deck, IRandomNumberGenerator numberGenerator)
+        public Dealer(IDeck<TCardKind> deck, IRandomNumberGenerator numberGenerator)
         {
             Deck = deck;
             NumberGenerator = numberGenerator;
         }
 
-        public TCard DealCard()
+        public TCardKind DealCard()
         {
             var cardsLeft = Deck.NumberOfCardsLeft();
             if (cardsLeft < 1)
@@ -34,7 +34,7 @@ namespace EluciusFTW.CardGames.Core
             return Deck.GetFromRemaining(nextCardPosition);
         }
 
-        public IReadOnlyCollection<TCard> DealCards(int amount)
+        public IReadOnlyCollection<TCardKind> DealCards(int amount)
             => Enumerable
                 .Repeat(1, amount)
                 .Select(_ => DealCard())

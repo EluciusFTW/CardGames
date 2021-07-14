@@ -1,8 +1,8 @@
-﻿using EluciusFTW.CardGames.Core.Cards.French;
+﻿using CardGames.Core.Cards.French;
 using FluentAssertions;
 using Xunit;
 
-namespace EluciusFTW.CardGames.Core.Tests.Cards
+namespace CardGames.Core.Tests.Cards
 {
     public class CardTests
     {

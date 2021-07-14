@@ -1,6 +1,6 @@
-﻿using EluciusFTW.CardGames.Core.Cards.French.Extensions;
+﻿using CardGames.Core.Cards.French.Extensions;
 
-namespace EluciusFTW.CardGames.Core.Cards.French
+namespace CardGames.Core.Cards.French
 {
     public readonly struct Card
     {

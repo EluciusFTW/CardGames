@@ -1,12 +1,11 @@
-﻿using EluciusFTW.CardGames.Core.Cards.Deck;
-using EluciusFTW.CardGames.Core.Cards.French;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CardGames.Core.Cards.French;
 
-namespace EluciusFTW.CardGames.Core.Deck.French
+namespace CardGames.Core.Deck.French
 {
-    public abstract class FrenchDeck : IDeck<Card>
+    public abstract class FrenchDeck : IDeck<Cards.French.Card>
     {
         private IList<Card> _cardsOut
             = new List<Card>();
@@ -16,14 +15,9 @@ namespace EluciusFTW.CardGames.Core.Deck.French
                 .ToArray()[index];
 
         public int NumberOfCardsLeft()
-            => 52 - _cardsOut.Count;
+            => Cards().Count - _cardsOut.Count;
 
         protected abstract IReadOnlyCollection<Card> Cards();
-
-        protected static IEnumerable<Card> GetAllsuits(int value)
-            => Enumerable
-                .Range(0, 4)
-                .Select(suit => new Card((Suit)suit, value));
 
         public IReadOnlyCollection<Card> CardsLeft()
             => Cards()

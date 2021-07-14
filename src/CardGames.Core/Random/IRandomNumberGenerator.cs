@@ -1,4 +1,4 @@
-﻿namespace EluciusFTW.CardGames.Core.Random
+﻿namespace CardGames.Core.Random
 {
     public interface IRandomNumberGenerator
     {

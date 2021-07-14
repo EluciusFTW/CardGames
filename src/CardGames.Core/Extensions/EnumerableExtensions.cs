@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace EluciusFTW.CardGames.Core.Extensions
+namespace CardGames.Core.Extensions
 {
     public static class EnumerableExtensions
     {
