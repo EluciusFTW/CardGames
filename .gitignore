@@ -7,7 +7,6 @@
 *.userosscache
 *.sln.docstates
 *.ncrunchproject
-!DPP.IntegrationTests.v3.ncrunchproject
 *.ncrunchsolution
 *.log.*
 
@@ -265,16 +264,3 @@ ModelManifest.xml
 NDependOut/
 **/*.ndproj
 *.orig
-
-# Generated xsds
-Deployment/*.xsd
-
-# per web-transform generated web.config
-DPP.Api/Web.config
-WebServer/Dpp.Web.Api/Web.config
-/DPP.BLL.AdvisoryProcess/CredentialProvider.VSS.exe
-/DPP.BLL.AdvisoryProcess/NuGet.exe
-
-# DPP customizing folder
-_custom/
-/Tests/DPP.IntegrationTests/DPP.IntegrationTests.v3.ncrunchproject
