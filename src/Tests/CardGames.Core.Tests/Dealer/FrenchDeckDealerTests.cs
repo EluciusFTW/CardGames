@@ -19,6 +19,28 @@ namespace CardGames.Core.Tests.Dealer
             success.Should().BeTrue();
             card.Symbol.Should().Be(Symbol.Seven);
         }
+        
+        [Fact]
+        public void Can_Deal_Specific_Symbol()
+        {
+            var dealer = FrenchDeckDealer.WithFullDeck();
+
+            var success = dealer.TryDealCardOfSymbol(Symbol.Ace, out var card);
+
+            success.Should().BeTrue();
+            card.Symbol.Should().Be(Symbol.Ace);
+        }
+        
+        [Fact]
+        public void Can_Deal_Specific_Suit()
+        {
+            var dealer = FrenchDeckDealer.WithFullDeck();
+
+            var success = dealer.TryDealCardOfSuit(Suit.Diamonds, out var card);
+
+            success.Should().BeTrue();
+            card.Suit.Should().Be(Suit.Diamonds);
+        }
 
         [Theory]
         [InlineData(2)]
@@ -38,13 +60,32 @@ namespace CardGames.Core.Tests.Dealer
 
             success.Should().BeFalse();
         }
+        
+        
+        [Theory]
+        [InlineData(Suit.Diamonds)]
+        [InlineData(Suit.Hearts)]
+        public void Can_Deal_Exactly_Nine_Cards_Of_Given_Suit_From_A_Short_Deck(Suit suit)
+        {
+            var dealer = FrenchDeckDealer.WithShortDeck();
+            Enumerable.Repeat(true, 9)
+                .ForEach(__ =>
+                {
+                    var success = dealer.TryDealCardOfSuit(suit, out _);
+                    success.Should().BeTrue();
+                });
+
+            var success = dealer.TryDealCardOfSuit(suit, out _);
+
+            success.Should().BeFalse();
+        }
 
         [Theory]
         [InlineData(2)]
         [InlineData(3)]
         [InlineData(4)]
         [InlineData(5)]
-        public void Short_Deck_Dealer_Can_Not_Deal_Removed_Cards(int value)
+        public void Short_Deck_Dealer_Can_Not_Deal_Cards_Missing_From_Full_Deck(int value)
         {
             var dealer = FrenchDeckDealer.WithShortDeck();
 
