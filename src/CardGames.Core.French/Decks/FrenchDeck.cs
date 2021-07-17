@@ -12,18 +12,21 @@ namespace CardGames.Core.French.Decks
             = new List<Card>();
 
         private Card this[int index]
-             => CardsLeft()
+             => CardsLeftInternal()
                 .ToArray()[index];
+        
+        private IEnumerable<Card> CardsLeftInternal() 
+            => Cards()
+                .Except(_cardsOut);
 
         public int NumberOfCardsLeft()
             => Cards().Count - _cardsOut.Count;
 
         protected abstract IReadOnlyCollection<Card> Cards();
-
+        
         public IReadOnlyCollection<Card> CardsLeft()
-            => Cards()
-                .Except(_cardsOut)
-                .ToArray();
+            => CardsLeftInternal()
+                .ToList();
 
         public IReadOnlyCollection<Card> CardsLeftOfValue(int value)
             => CardsLeftWith(card => card.Value == value);
@@ -32,9 +35,9 @@ namespace CardGames.Core.French.Decks
             => CardsLeftWith(card => card.Suit == suit);
 
         public IReadOnlyCollection<Card> CardsLeftWith(Func<Card, bool> predicate)
-            => CardsLeft()
+            => CardsLeftInternal()
                 .Where(predicate)
-                .ToArray();
+                .ToList();
 
         public Card GetSpecific(Card card)
         {   

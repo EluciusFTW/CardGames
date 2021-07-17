@@ -60,7 +60,7 @@ namespace CardGames.Core.French.Tests.Decks
         }
 
         [Fact]
-        public void Throws_When_Getting_A_Card_Thats_Not_Pert_of_The_Deck()
+        public void Throws_When_Getting_A_Card_That_Is_Not_Pert_of_The_Deck()
         {
             var deck = new ShortFrenchDeck();
             
