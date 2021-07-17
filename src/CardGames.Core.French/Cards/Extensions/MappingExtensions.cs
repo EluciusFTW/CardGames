@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CardGames.Core.Cards.French.Extensions
+namespace CardGames.Core.French.Cards.Extensions
 {
     public static class MappingExtensions
     {

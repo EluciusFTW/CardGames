@@ -1,9 +1,9 @@
-using CardGames.Core.Cards.French;
-using CardGames.Core.Cards.French.Extensions;
+using CardGames.Core.French.Cards;
+using CardGames.Core.French.Cards.Extensions;
 using FluentAssertions;
 using Xunit;
 
-namespace CardGames.Core.Tests.Cards
+namespace CardGames.Core.French.Tests.Cards
 {
     public class SerializationTests
     {

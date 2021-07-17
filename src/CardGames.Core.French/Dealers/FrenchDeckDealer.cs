@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using CardGames.Core.Cards.French;
-using CardGames.Core.Deck.French;
+﻿using System.Linq;
+using CardGames.Core.Dealer;
+using CardGames.Core.French.Cards;
+using CardGames.Core.French.Decks;
 using CardGames.Core.Random;
 
-namespace CardGames.Core.Dealer
+namespace CardGames.Core.French.Dealers
 {
     public class FrenchDeckDealer : Dealer<Card>
     {

@@ -1,4 +1,4 @@
-﻿namespace CardGames.Core.Cards.French
+﻿namespace CardGames.Core.French.Cards
 {
     public enum Symbol
     {

@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using CardGames.Core.Cards.French;
+using CardGames.Core.Deck;
+using CardGames.Core.French.Cards;
 
-namespace CardGames.Core.Deck.French
+namespace CardGames.Core.French.Decks
 {
-    public abstract class FrenchDeck : IDeck<Cards.French.Card>
+    public abstract class FrenchDeck : IDeck<Card>
     {
         private IList<Card> _cardsOut
             = new List<Card>();

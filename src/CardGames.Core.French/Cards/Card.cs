@@ -1,6 +1,6 @@
-﻿using CardGames.Core.Cards.French.Extensions;
+﻿using CardGames.Core.French.Cards.Extensions;
 
-namespace CardGames.Core.Cards.French
+namespace CardGames.Core.French.Cards
 {
     public readonly struct Card
     {

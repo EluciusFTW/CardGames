@@ -1,8 +1,8 @@
-﻿using CardGames.Core.Cards.French;
+﻿using CardGames.Core.French.Cards;
 using FluentAssertions;
 using Xunit;
 
-namespace CardGames.Core.Tests.Cards
+namespace CardGames.Core.French.Tests.Cards
 {
     public class CardTests
     {

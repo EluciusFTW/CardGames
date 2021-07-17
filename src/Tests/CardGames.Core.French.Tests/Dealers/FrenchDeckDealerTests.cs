@@ -1,11 +1,11 @@
 ﻿using System.Linq;
-using CardGames.Core.Cards.French;
-using CardGames.Core.Dealer;
 using CardGames.Core.Extensions;
+using CardGames.Core.French.Cards;
+using CardGames.Core.French.Dealers;
 using FluentAssertions;
 using Xunit;
 
-namespace CardGames.Core.Tests.Dealer
+namespace CardGames.Core.French.Tests.Dealers
 {
     public class FrenchDeckDealerTests
     {

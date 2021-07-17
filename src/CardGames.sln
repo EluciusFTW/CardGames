@@ -1,13 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.0.31410.414
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{E9CFD145-721B-4E34-A8E8-34BE03F79FED}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CardGames.Core", "CardGames.Core\CardGames.Core.csproj", "{B3964C69-A716-47D4-B16D-7C09DD9737C7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CardGames.Core.Tests", "Tests\CardGames.Core.Tests\CardGames.Core.Tests.csproj", "{A8AAB3EA-C612-493E-9AD0-66DA966B82D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CardGames.Core.French", "CardGames.Core.French\CardGames.Core.French.csproj", "{81A61078-4E40-4E67-B66D-ABCFCD6A3033}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CardGames.Core.French.Tests", "Tests\CardGames.Core.French.Tests\CardGames.Core.French.Tests.csproj", "{8F0154B5-DF55-4F0F-8CAE-C51F4737942E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,12 +27,21 @@ Global
 		{A8AAB3EA-C612-493E-9AD0-66DA966B82D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8AAB3EA-C612-493E-9AD0-66DA966B82D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8AAB3EA-C612-493E-9AD0-66DA966B82D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81A61078-4E40-4E67-B66D-ABCFCD6A3033}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81A61078-4E40-4E67-B66D-ABCFCD6A3033}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81A61078-4E40-4E67-B66D-ABCFCD6A3033}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81A61078-4E40-4E67-B66D-ABCFCD6A3033}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F0154B5-DF55-4F0F-8CAE-C51F4737942E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F0154B5-DF55-4F0F-8CAE-C51F4737942E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F0154B5-DF55-4F0F-8CAE-C51F4737942E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F0154B5-DF55-4F0F-8CAE-C51F4737942E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{A8AAB3EA-C612-493E-9AD0-66DA966B82D6} = {E9CFD145-721B-4E34-A8E8-34BE03F79FED}
+		{8F0154B5-DF55-4F0F-8CAE-C51F4737942E} = {E9CFD145-721B-4E34-A8E8-34BE03F79FED}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0E8F314E-CFF9-4CE9-8D59-54A58A05FAEA}

@@ -1,10 +1,10 @@
 ﻿using System;
-using CardGames.Core.Cards.French;
-using CardGames.Core.Deck.French;
+using CardGames.Core.French.Cards;
+using CardGames.Core.French.Decks;
 using FluentAssertions;
 using Xunit;
 
-namespace CardGames.Core.Tests.Deck
+namespace CardGames.Core.French.Tests.Decks
 {
     public class FrenchDeckTests
     {   
