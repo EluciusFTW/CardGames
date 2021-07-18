@@ -5,7 +5,7 @@ namespace CardGames.Core.French.Cards.Extensions
 {
     public static class CardsExtensions
     {
-        public static IReadOnlyCollection<Suit> Suits(this IEnumerable<Card> cards)
+        public static IReadOnlyCollection<Suit> DistinctSuits(this IEnumerable<Card> cards)
             => cards
                 .Select(card => card.Suit)
                 .Distinct()
@@ -35,7 +35,10 @@ namespace CardGames.Core.French.Cards.Extensions
         public static int ValueOfBiggestPair(this IEnumerable<Card> cards) 
             => cards.HighestValueOfNFolds(2);
 
-        public static int ValueOfTrips(this IEnumerable<Card> cards) 
+        public static int ValueOfBiggestTrips(this IEnumerable<Card> cards) 
+            => cards.HighestValueOfNFolds(3);
+        
+        public static int ValueOfBiggestQuads(this IEnumerable<Card> cards) 
             => cards.HighestValueOfNFolds(3);
                 
         public static bool ContainsValues(this IEnumerable<Card> cards, IEnumerable<int> valuesToContain)

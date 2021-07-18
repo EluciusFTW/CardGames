@@ -3,7 +3,9 @@
 After writing simulations and tools for card games (poker in particular) in the last years, I have decided to take a step back, sort through the code bases, clean up here and there, and distill out small, reusable packages that hopefully can be useful for the open source community.
 
 ### About the project
-I assume this project will be slow, because of several reasons. First of all, it is a pure leisure project. Secondly, because I value design. I try to model the entities and their apis as closely as possible to the real world concepts they represent (albeit adding some convenience apis if they are very useful). I value code quality and readability a lot as well. I'll spend lots of time rewriting algorithmically simple things if I feel I can express them even cleaner. And finally, I also am a big believer in unit tests, especially when writing libraries. You put yourself in the role of a client and try to interact with the entities the library provides. They not only provide confidence that everything works the way it should, they make you really think about the design an usability of the entities the library provides. 
+I assume this project will be slow, because of several reasons. First of all, it is a pure leisure project. Secondly, because I value design. I try to model the entities and their apis as closely as possible to the real world concepts they represent (albeit adding some convenience apis if they are very useful).
+
+I value code quality and readability a lot as well. I'll spend lots of time rewriting algorithmically simple things if I feel I can express them even cleaner. And finally, I also am a big believer in unit tests, especially when writing libraries. You put yourself in the role of a client and try to interact with the entities the library provides. They not only provide confidence that everything works the way it should, they make you really think about the design an usability of the entities the library provides. 
 
 # CardGames.Core
 There are thousands of different [card games](https://en.wikipedia.org/wiki/Card_game), with many different cards and collections of cards, with different rules and purposes. 
@@ -11,53 +13,100 @@ There are thousands of different [card games](https://en.wikipedia.org/wiki/Card
 In this package, we tried to follow a domain-driven approach to card games in general<sup>1</sup>. 
 It contains the basic entities needed for such a game: _Cards_ (duh!), _Card decks_ (which are the finite collections of all possible cards of given type) and _Dealers_.
 
-We do provide implementations for the entities for the arguably the most well-known card: the [french-suited playing card](https://en.wikipedia.org/wiki/French-suited_playing_cards).
-
 <sup>1</sup> Actually, up to abuse of language, any game of chance that contains a finite set of possibilities can be modelled using this package, e.g., we can interpret a die as a deck of six cards called: 1,2,3,4,5,6. We can implement a `DiceDealer` who 'shuffles the deck' (i.e. returns the dealt/rolled card/value back to the deck immediately) after dealing a card (rolling the die).
+
 ## Card
-The most elemental part of a card game is the card. 
-
-### French-suited playing cards
-This package currently provides the arguably the most used type of card, namely the [french-suited playing card](https://en.wikipedia.org/wiki/French-suited_playing_cards). They currently can be constructed in two ways. Firstly using the constructors,
-
-```cs
-// Using the Suit and Symbol enum
-var card = new Card(Suit.Hearts, Symbol.Deuce);
-
-// Using the value instead of the Symbol. 
-// It is simply the integer value underlying the enum value, but very useful in simulations
-var card = new Card(Suit.Hearts, 8);
-````
-
-and secondly, using deserialization extensions from the most common card representation,
-```cs
-// String extension expecting the format {symbol char}{suit char}
-var card = "Jc".ToCard();
-
-// String extension expecting the one or more cards separated by a space
-var cards = "2h 5d Qs".ToCards();
-````
-
-### Custom cards
-You can define your own card type. The only restriction for it to work together with the _Deck_ and the _Dealer_ is that cards have to be 
-**structs**, and the set of all of them (i.e., the content of the deck) should be **finite** (sorry, you can't implement natural number bingo). 
+The most elemental part of a card game is the card. There is actually nothing universal that describes a card, except for it being detemined by it's content. So in all later entities the card will be represented by a generic type `TCard`, with the constraint that it is a **struct**. 
 
 ## Deck
 The collection of all different cards, in a bunch, is called a deck.
 
-The package provides a generic interface for a deck which holds cards of the generic struct type `TCardKind`
+The package provides a generic interface for a deck which holds cards of the generic struct type `TCard`
 ```cs
 // Interface definition for a generic deck
-public interface IDeck<TCardKind> where TCardKind : struct
+public interface IDeck<TCard> where TCard : struct
 {
     int NumberOfCardsLeft();
-    TCardKind GetFromRemaining(int index);
-    TCardKind GetSpecific(TCardKind specificCard);
+    TCard GetFromRemaining(int index);
+    TCard GetSpecific(TCard specificCard);
     void Reset();
 };
 ````
-### French decks
-Of course, as we have provided the french-suited card, we also provide some decks in this package.
+
+## Dealer
+The dealer is the entity handling the deck. Instead of only providing an interface like for the deck, the library provides a generic implementation of a dealer, which can be specified (i.e., derived from) in order to add more specific functionality:
+```cs
+public class Dealer<TCard> where TCard : struct
+{
+    public Dealer(IDeck<TCard> deck) {...}
+    public Dealer(IDeck<TCard> deck, IRandomNumberGenerator numberGenerator) {...}
+
+    public TCard DealCard() {...}
+    public IReadOnlyCollection<TCard> DealCards(int amount) {...}
+    public void Shuffle() {...}
+}
+````
+The dealer can deal one or many cards at once, and shuffle the deck. In order to do that, he needs a deck (duh!). In order to shuffle, he needs some source of randomness. We provide an interface you can implement,
+```cs
+public interface IRandomNumberGenerator
+{
+    public int Next(int upperBound);
+}
+````
+and a standand implementation (which is just a wrapper holding an instance of `System.Random`).
+
+# CardGames.Core.French
+This library is an implementation of the core library for the arguably the most well-known playing card: the [french-suited playing card](https://en.wikipedia.org/wiki/French-suited_playing_cards).
+
+## French-suited playing cards
+A french-suited playing card is characterized by two properties: The _Suit_ (Diamonds, Hearts, Clubs and Spades) and the _Symbol_ (Deuce, Three ... King, Ace), both of which are represented as enums in the library. The _Value_ of the card is a numeric value in bijective relation to it's symbol:
+```cs
+// Using the Suit and Symbol enum
+var card = new Card(Suit.Hearts, Symbol.Deuce);
+
+// Using the Value instead of the Symbol
+var card = new Card(Suit.Hearts, 8);
+````
+
+### Serialization and Deserilaization
+There are conventional string representations for these cards, which we support via extensions (resp. implementing the `ToString()` method):
+```cs
+// String extension expecting the format {symbol char}{suit char}
+var card = "Jc".ToCard();
+var serializedCard = card.ToString() // equals "Jc" again.
+
+// String extension expecting the one or more cards separated by a space
+var cards = "2h 5d Qs".ToCards();
+var serializedCards = cards.ToStringRepresentation(); // equals "2h 5d Qs" again.
+````
+
+### Dealing with collections of cards
+Since most card games involve players having more than one card, handling collections of cards is needed. We provide several extensions on `IEnumerable<Card>` for convenience:
+
+```cs
+// Get cards by descending value
+IReadOnlyCollection<Card> ByDescendingValue(this IEnumerable<Card> cards)
+
+// Get values in several flavors
+IReadOnlyCollection<int> Values(this IEnumerable<Card> cards)
+IReadOnlyCollection<int> DescendingValues(this IEnumerable<Card> cards)
+IReadOnlyCollection<int> DistinctDescendingValues(this IEnumerable<Card> cards)
+
+// Get all distinct suits
+IReadOnlyCollection<Suit> Suits(this IEnumerable<Card> cards)
+
+// Check if given values are all in the cards
+bool ContainsValue(this IEnumerable<Card> cards, int value)
+bool ContainsValues(this IEnumerable<Card> cards, IEnumerable<int> valuesToContain)
+
+// Detemines highest value-duplicates
+int ValueOfBiggestPair(this IEnumerable<Card> cards) 
+int ValueOfBiggestTrips(this IEnumerable<Card> cards)
+int ValueOfBiggestQuads(this IEnumerable<Card> cards)
+````
+
+## French decks
+Of course, as we have provided the french-suited card, we also provide some decks containing these cards in this library.
 
 First of all, there is a base class which provides a few more useful methods already using the fact that a french card has a `Symbol` (resp. `Value`) and a `Suit`. The only thing an implementing class must provide is the collection of _all cards_ in the deck:
 ```cs
@@ -74,32 +123,12 @@ There are two implementations in the package:
 - `FullFrenchDeck`: The standard 52-card deck consisting of Deuce-to-Ace of all four suits.
 - `ShortFrenchDeck`: A 36-card deck consisting of Six-to-Ace of all four suits (like is used in [Short-deck poker](https://en.wikipedia.org/wiki/Six-plus_hold_%27em)).
 
-## Dealer
-The dealer is the person handling the deck. 
+## French-deck dealer
+One could wonder why a dealer cares whyt kind of deck he deals, i.e., why a specific dealer implementation for a given deck makes sense.
 
-We provide a generic dealer as well:
-```cs
-public class Dealer<TCardKind> where TCardKind : struct
-{
-    public Dealer(IDeck<TCardKind> deck) {...}
-    public Dealer(IDeck<TCardKind> deck, IRandomNumberGenerator numberGenerator) {...}
+In our domain view, the dealer is the owner of the deck, and responsible for dealing the cards. He hence has knowledge about the deck (a dealer can peek if he wants!), and using this knowledge, combined with a specific deck let's us add convenience methods on the dealer. 
 
-    public TCardKind DealCard() {...}
-    public IReadOnlyCollection<TCardKind> DealCards(int amount) {...}
-    public void Shuffle() {...}
-}
-````
-The dealer can deal one or many cards at once, and shuffle the deck. In order to do that, he needs a deck (duh!). In order to shuffle, he needs some source of randomness. We provide an interface you can implement,
-```cs
-public interface IRandomNumberGenerator
-{
-    public int Next(int upperBound);
-}
-````
-and a standand implementation (which is just a wrapper holding an instance of `System.Random`).
-
-### French-deck dealer
-We provide a dealer implementation for the french card an deck as well, the `FrenchDeckDealer`, including two factory methods for the decks we have defined earlier, and convenience methods useful for simulation purposes, which is possible since we know the french card has a value property:
+The `FrenchDeckDealer` we provide in this package (including two factory methods for the decks we have defined earlier), can peek into the deck and try to narrow down the cards from which he deals the next, randomly:
 ```cs
 // provides a dealer with full deck (or use .WithShortDeck() for a short deck)
 var dealer = FrenchDeckDealer.WithfullDeck();
@@ -110,6 +139,7 @@ _ = dealer.TryDealCardOfValue(7, out var card);
 _ = dealer.TryDealCardOfSymbol(Symbol.King, out var card);
 _ = dealer.TryDealCardOfSuit(Suit.Spades, out var card);
 ````
+This is very useful and increases performance in simulation scenarios where certain specific situations have to be recreated over and over.
 
 ### Disclaimer
 :hand: Although this description uses the word _package_ multiple times, it is not yet published as a nuget package, as it is still under development.
