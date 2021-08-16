@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CardGames.Core.French\CardGames.Core.French.csproj" />
+    <ProjectReference Include="..\CardGames.Core\CardGames.Core.csproj" />
+  </ItemGroup>
+
+</Project>

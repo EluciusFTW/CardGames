@@ -9,9 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CardGames.Core", "CardGames
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CardGames.Core.Tests", "Tests\CardGames.Core.Tests\CardGames.Core.Tests.csproj", "{A8AAB3EA-C612-493E-9AD0-66DA966B82D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CardGames.Core.French", "CardGames.Core.French\CardGames.Core.French.csproj", "{81A61078-4E40-4E67-B66D-ABCFCD6A3033}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CardGames.Core.French", "CardGames.Core.French\CardGames.Core.French.csproj", "{81A61078-4E40-4E67-B66D-ABCFCD6A3033}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CardGames.Core.French.Tests", "Tests\CardGames.Core.French.Tests\CardGames.Core.French.Tests.csproj", "{8F0154B5-DF55-4F0F-8CAE-C51F4737942E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CardGames.Core.French.Tests", "Tests\CardGames.Core.French.Tests\CardGames.Core.French.Tests.csproj", "{8F0154B5-DF55-4F0F-8CAE-C51F4737942E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CardGames.Playground", "CardGames.Playground\CardGames.Playground.csproj", "{994324AB-2D4B-42DD-922F-3025FB632B25}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CardGames.Playground.Runner", "CardGames.Playground.Runner\CardGames.Playground.Runner.csproj", "{7C5A3944-4E44-47CD-BB0B-D7187D656A10}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +39,14 @@ Global
 		{8F0154B5-DF55-4F0F-8CAE-C51F4737942E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F0154B5-DF55-4F0F-8CAE-C51F4737942E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F0154B5-DF55-4F0F-8CAE-C51F4737942E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{994324AB-2D4B-42DD-922F-3025FB632B25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{994324AB-2D4B-42DD-922F-3025FB632B25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{994324AB-2D4B-42DD-922F-3025FB632B25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{994324AB-2D4B-42DD-922F-3025FB632B25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C5A3944-4E44-47CD-BB0B-D7187D656A10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C5A3944-4E44-47CD-BB0B-D7187D656A10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C5A3944-4E44-47CD-BB0B-D7187D656A10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C5A3944-4E44-47CD-BB0B-D7187D656A10}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
