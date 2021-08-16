@@ -16,6 +16,9 @@ namespace CardGames.Core.French.Cards.Extensions
                 .Select(card => card.Value)
                 .ToList();
 
+        public static int HighestValue(this IEnumerable<Card> cards)
+            => cards.Values().Max();
+
         public static IReadOnlyCollection<Card> ByDescendingValue(this IEnumerable<Card> cards)
             => cards
                 .OrderByDescending(card => card.Value)
