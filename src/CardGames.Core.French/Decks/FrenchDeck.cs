@@ -62,6 +62,6 @@ namespace CardGames.Core.French.Decks
         }
 
         public void Reset()
-            => _cardsOut = Array.Empty<Card>();
+            => _cardsOut = new List<Card>();
     }
 }
