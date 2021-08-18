@@ -13,9 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CardGames.Core.French", "Ca
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CardGames.Core.French.Tests", "Tests\CardGames.Core.French.Tests\CardGames.Core.French.Tests.csproj", "{8F0154B5-DF55-4F0F-8CAE-C51F4737942E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CardGames.Playground", "CardGames.Playground\CardGames.Playground.csproj", "{994324AB-2D4B-42DD-922F-3025FB632B25}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CardGames.Playground", "CardGames.Playground\CardGames.Playground.csproj", "{994324AB-2D4B-42DD-922F-3025FB632B25}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CardGames.Playground.Runner", "CardGames.Playground.Runner\CardGames.Playground.Runner.csproj", "{7C5A3944-4E44-47CD-BB0B-D7187D656A10}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CardGames.Playground.Runner", "CardGames.Playground.Runner\CardGames.Playground.Runner.csproj", "{7C5A3944-4E44-47CD-BB0B-D7187D656A10}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CardGames.Poker", "CardGames.Poker\CardGames.Poker.csproj", "{8F8310CA-22FE-46CF-807A-3791D1D8A15B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +49,10 @@ Global
 		{7C5A3944-4E44-47CD-BB0B-D7187D656A10}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C5A3944-4E44-47CD-BB0B-D7187D656A10}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C5A3944-4E44-47CD-BB0B-D7187D656A10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F8310CA-22FE-46CF-807A-3791D1D8A15B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F8310CA-22FE-46CF-807A-3791D1D8A15B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F8310CA-22FE-46CF-807A-3791D1D8A15B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F8310CA-22FE-46CF-807A-3791D1D8A15B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
