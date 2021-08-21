@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CardGames.Playground.Runner
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CardGames.Poker", "CardGames.Poker\CardGames.Poker.csproj", "{8F8310CA-22FE-46CF-807A-3791D1D8A15B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CardGames.Poker.Tests", "Tests\CardGames.Poker.Tests\CardGames.Poker.Tests.csproj", "{5E8EEC44-FA73-4A66-9433-64D5E3468C9D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,10 @@ Global
 		{8F8310CA-22FE-46CF-807A-3791D1D8A15B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F8310CA-22FE-46CF-807A-3791D1D8A15B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F8310CA-22FE-46CF-807A-3791D1D8A15B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E8EEC44-FA73-4A66-9433-64D5E3468C9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E8EEC44-FA73-4A66-9433-64D5E3468C9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E8EEC44-FA73-4A66-9433-64D5E3468C9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E8EEC44-FA73-4A66-9433-64D5E3468C9D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +66,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{A8AAB3EA-C612-493E-9AD0-66DA966B82D6} = {E9CFD145-721B-4E34-A8E8-34BE03F79FED}
 		{8F0154B5-DF55-4F0F-8CAE-C51F4737942E} = {E9CFD145-721B-4E34-A8E8-34BE03F79FED}
+		{5E8EEC44-FA73-4A66-9433-64D5E3468C9D} = {E9CFD145-721B-4E34-A8E8-34BE03F79FED}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0E8F314E-CFF9-4CE9-8D59-54A58A05FAEA}
