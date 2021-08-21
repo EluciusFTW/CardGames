@@ -1,6 +1,7 @@
 ﻿using CardGames.Core.French.Cards;
 using System.Collections.Generic;
 using CardGames.Poker.Hands.HandStrenght;
+using CardGames.Poker.Hands.HandTypes;
 
 namespace CardGames.Poker.Hands
 {
@@ -9,9 +10,12 @@ namespace CardGames.Poker.Hands
         public DrawHand(IReadOnlyCollection<Card> cards)
             : base(cards)
         {
+            HandStrength = StrengthCalculations.Classic(Cards, HandType);
+            HandType = HandTypeDetermination.DetermineHandType(Cards);
         }
 
-        protected override long HandStrengthCalculation()
-            => StrengthCalculations.Classic(Cards, HandType);
+        public override long HandStrength { get; }
+
+        public override HandType HandType { get; }
     }
 }

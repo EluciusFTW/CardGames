@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using CardGames.Poker.Hands.HandTypes;
+using System.Linq;
 
 namespace CardGames.Poker.Hands.Extensions
 {

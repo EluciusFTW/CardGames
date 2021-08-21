@@ -1,5 +1,6 @@
 ﻿using CardGames.Core.French.Cards;
 using CardGames.Core.French.Cards.Extensions;
+using CardGames.Poker.Hands.HandTypes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace CardGames.Poker.Hands.HandStrenght
 {
     public static class StrengthCalculations
     {
-        private static readonly Dictionary<HandType, int> ClassicHap = new Dictionary<HandType, int>
+        private static readonly Dictionary<HandType, int> ClassicMap = new Dictionary<HandType, int>
         {
             { HandType.Incomplete, -1 },
             { HandType.Highcard, 0 },
@@ -39,8 +40,14 @@ namespace CardGames.Poker.Hands.HandStrenght
 
         private static long prefixMultiplier = 10000000000;
 
+        public static HandType GetEffectiveType(IReadOnlyCollection<HandType> handTypes)
+            => handTypes
+                .Select(type => new { type, Value = ClassicMap[type] })
+                .OrderByDescending(pair => pair.Value)
+                .First().type;
+
         public static long Classic(IReadOnlyCollection<Card> cards, HandType handType)
-            => Calculate(cards, handType, ClassicHap);
+            => Calculate(cards, handType, ClassicMap);
 
         public static long ShortDeck(IReadOnlyCollection<Card> cards, HandType handType)
             => Calculate(cards, handType, ShortDeckMap);

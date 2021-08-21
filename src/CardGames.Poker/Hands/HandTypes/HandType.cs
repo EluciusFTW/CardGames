@@ -1,4 +1,4 @@
-﻿namespace CardGames.Poker.Hands
+﻿namespace CardGames.Poker.Hands.HandTypes
 {
     public enum HandType
     {
