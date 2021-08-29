@@ -23,7 +23,7 @@ namespace CardGames.Poker.Tests.Hands
         {
             var hand = new DrawHand(cardString.ToCards());
 
-            hand.HandType.Should().Be(expectedHandType);
+            hand.Type.Should().Be(expectedHandType);
         }
     }
 }

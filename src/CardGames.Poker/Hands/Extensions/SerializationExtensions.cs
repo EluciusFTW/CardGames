@@ -6,7 +6,7 @@ namespace CardGames.Poker.Hands.Extensions
     public static class SerializationExtensions
     {
         public static string HandStrengthStringRepresentation(this FiveCardHand hand)
-            => hand.HandType switch
+            => hand.Type switch
             {
                 HandType.Highcard => hand.Cards.First().Value + "Low",
                 HandType.OnePair => "One Pair",

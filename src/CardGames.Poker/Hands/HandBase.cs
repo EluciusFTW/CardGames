@@ -9,8 +9,8 @@ namespace CardGames.Poker.Hands
     public abstract class HandBase : IComparable<HandBase>
     {
         public IReadOnlyCollection<Card> Cards { get; }
-        public abstract long HandStrength { get; }
-        public abstract HandType HandType { get; }
+        public abstract long Strength { get; }
+        public abstract HandType Type { get; }
 
         public HandBase(IReadOnlyCollection<Card> cards)
         {
@@ -24,7 +24,7 @@ namespace CardGames.Poker.Hands
             => thisHand.CompareTo(otherHand) < 0;
 
         public int CompareTo(HandBase other)
-            => HandStrength.CompareTo(other.HandStrength);
+            => Strength.CompareTo(other.Strength);
 
         public override string ToString()
             => Cards.ToStringRepresentation();

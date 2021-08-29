@@ -3,7 +3,7 @@ using CardGames.Core.Extensions;
 using System.Collections.Generic;
 using System.Linq;
 using CardGames.Poker.Hands.HandTypes;
-using CardGames.Poker.Hands.HandStrenght;
+using CardGames.Poker.Hands.Strength;
 
 namespace CardGames.Poker.Hands
 {
@@ -15,15 +15,17 @@ namespace CardGames.Poker.Hands
         public IReadOnlyCollection<Card> HoleCards { get; }
         public IReadOnlyCollection<Card> CommunityCards { get; }
 
-        public override long HandStrength { get; }
-        public override HandType HandType { get; }
+        public override long Strength { get; }
+        public override HandType Type { get; }
 
         public CommunityCardsHand(
             int leastNumberOfHoleCardsToBeUsed,
             int greatestNumberOfHoleCardsToBeUsed,
             IReadOnlyCollection<Card> holeCards,
             IReadOnlyCollection<Card> communityCards)
-            : base(holeCards.Concat(communityCards).ToList())
+            : base(holeCards
+                  .Concat(communityCards)
+                  .ToList())
         {
             _leastNumberOfHoleCardsToBeUsed = leastNumberOfHoleCardsToBeUsed;
             _greatestNumberOfHoleCardsToBeUsed = greatestNumberOfHoleCardsToBeUsed;
@@ -33,15 +35,15 @@ namespace CardGames.Poker.Hands
             var handsAndTypes = PossibleHands()
                 .Select(hand => new { hand, type = HandTypeDetermination.DetermineHandType(hand) });
 
-            HandType = StrengthCalculations
+            Type = HandStrength
                 .GetEffectiveType(handsAndTypes.Select(pair => pair.type).ToList());
 
             var handsOfEffectiveType = handsAndTypes
-                .Where(pair => pair.type == HandType)
+                .Where(pair => pair.type == Type)
                 .Select(pair => pair.hand);
 
-            HandStrength = handsOfEffectiveType
-                .Select(hand => StrengthCalculations.Classic(hand, HandType))
+            Strength = handsOfEffectiveType
+                .Select(hand => HandStrength.Classic(hand, Type))
                 .Max();
         }
 

@@ -16,7 +16,7 @@ namespace CardGames.Poker.Tests.Hands
         {
             var hand = new OmahaHand(holeCards.ToCards(), boardCards.ToCards());
 
-            hand.HandType.Should().Be(expectedHandType);
+            hand.Type.Should().Be(expectedHandType);
         }
 
         [Theory]
