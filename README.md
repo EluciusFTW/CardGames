@@ -141,8 +141,19 @@ _ = dealer.TryDealCardOfSuit(Suit.Spades, out var card);
 ````
 This is very useful and increases performance in simulation scenarios where certain specific situations have to be recreated over and over.
 
+# CardGames.Poker
+
+## Hands
+Currently, the library contains domain models for: 5-card draw hands, Holdem hands and Omaha hands. 
+In fact, the latter two derive from a more generic hand model called `CommunityCardsHand`, which can be used to model any kind of community card hand (any number of community cards, any number of hole cards, any requirement how many of them have to be used for a hand, and how many must at least be used. So in these parameters, a Holdem hand is (3-5, 2, 0, 2) and a Omaha hand (3-5, 4, 2, 2)). So using this as a basis, it is easy to implement, e.g., 5-card PLO and other lesser known variants.
+
+Hands all implement `IComparable`, and the operators "<, >" are implemented by default. This is accompished by using two properties of the base class of any hand:  
+Strength (of type `long`) and Type (e.g. `HandType.Flush`). The calculations of the strength and type are directly performed when constructing the hand, and they are designed in such a fashion that the ordering of the types can be provided as well (because, e.g., in short deck, a flush beats a full-house). The classical oredrign as well as the ordering for short-deck poker are provided in the class `HandTypeStrength`.
+
+
 ### Disclaimer
 :hand: Although this description uses the word _package_ multiple times, it is not yet published as a nuget package, as it is still under development.
+
 
 
 ## Feedback and Contributing
