@@ -46,6 +46,9 @@ namespace CardGames.Core.French.Dealers
             
             return TryDealCardFrom(availableCards, out card);
         }
+
+        public Card DealSpecific(Card card)
+            => Deck.GetSpecific(card);
         
         private bool TryDealCardFrom(Card[] cards, out Card card)
         {

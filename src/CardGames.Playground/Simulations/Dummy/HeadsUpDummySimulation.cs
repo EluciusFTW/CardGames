@@ -5,18 +5,18 @@ using CardGames.Core.Dealer;
 using CardGames.Core.French.Cards;
 using System.Collections.Generic;
 
-namespace CardGames.Playground
+namespace CardGames.Playground.Simulations.Dummy
 {
-    public class HeadsUpDummySimulation 
+    public class HeadsUpDummySimulation
     {
         private Dealer<Card> _dealer;
 
-        private HeadsUpDummySimulation(Dealer<Card> dealer) 
-        { 
+        private HeadsUpDummySimulation(Dealer<Card> dealer)
+        {
             _dealer = dealer;
         }
 
-        public static HeadsUpDummySimulation CreateWithFullDeckDealer() 
+        public static HeadsUpDummySimulation CreateWithFullDeckDealer()
             => new HeadsUpDummySimulation(FrenchDeckDealer.WithFullDeck());
 
         public static HeadsUpDummySimulation Create(Dealer<Card> dealer)
@@ -37,8 +37,8 @@ namespace CardGames.Playground
         }
 
         private bool? PlaySingleHAnd(
-            int numberOfCardsForPlayerOne, 
-            int NumberOfCardsForPlayerTwo, 
+            int numberOfCardsForPlayerOne,
+            int NumberOfCardsForPlayerTwo,
             Func<IReadOnlyCollection<Card>, IReadOnlyCollection<Card>, bool?> playerOneWins)
         {
             _dealer.Shuffle();
