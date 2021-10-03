@@ -3,6 +3,7 @@ using CardGames.Poker.Hands.HandTypes;
 using CardGames.Core.French.Cards.Extensions;
 using Xunit;
 using FluentAssertions;
+using CardGames.Poker.Hands.DrawHands;
 
 namespace CardGames.Poker.Tests.Hands
 {
