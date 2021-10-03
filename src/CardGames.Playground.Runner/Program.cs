@@ -10,10 +10,14 @@ namespace CardGames.Playground.Runner
     {
         static void Main()
         {
-            var results = RunHoldemSimulation(10000);
+            //var results = RunHoldemSimulation(100000);
 
-            PrintWinPercentages(results);
-            PrintHandDistributions(results);
+            //PrintWinPercentages(results);
+            //PrintHandDistributions(results);
+
+            var simulations = new HoldemSimulations();
+            simulations.PlayHoldemWithDedicatedHandsContainer(100);
+            simulations.PlayHoldemWithoutDedicatedHandsContainer(100);
 
             Console.ReadKey();
         }
@@ -23,7 +27,6 @@ namespace CardGames.Playground.Runner
                 .WithPlayer("Stefan", "Js Jd".ToCards())
                 .WithPlayer("Matthias", "8s 6d".ToCards())
                 .WithPlayer("Guy", "Ad Kd".ToCards())
-                .WithFlop("8d 8c 4d".ToCards())
                 .SimulateWithFullDeck(nrOfHAnds);
 
         private static void PrintWinPercentages(SimulationResult result)
