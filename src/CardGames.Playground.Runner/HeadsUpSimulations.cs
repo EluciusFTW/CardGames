@@ -22,23 +22,40 @@ namespace CardGames.Playground.Runner
 
     }
 
+    [MemoryDiagnoser]
     public class HoldemSimulations
     {
         [Benchmark]
-        public SimulationResult PlayHoldemWithoutDedicatedHandsContainer(int nrOfHands)
-            => new HoldemSimulation()
+        public SimulationResult PlayHoldem100()
+            => new StudSimulation()
                 .WithPlayer("Stefan", "Js Jd".ToCards())
                 .WithPlayer("Matthias", "8s 6d".ToCards())
                 .WithPlayer("Guy", "Ad Kd".ToCards())
-                .SimulateWithFullDeck(nrOfHands);
+                .SimulateWithFullDeck(100);
 
         [Benchmark]
-        public SimulationResultEncapsulated PlayHoldemWithDedicatedHandsContainer(int nrOfHands)
-            => new HoldemSimulationWithHands()
+        public SimulationResult PlayHoldem50()
+            => new StudSimulation()
                 .WithPlayer("Stefan", "Js Jd".ToCards())
                 .WithPlayer("Matthias", "8s 6d".ToCards())
                 .WithPlayer("Guy", "Ad Kd".ToCards())
-                .SimulateWithFullDeck(nrOfHands);
+                .SimulateWithFullDeck(50);
+
+        [Benchmark]
+        public SimulationResult PlayHoldem500()
+            => new StudSimulation()
+                .WithPlayer("Stefan", "Js Jd".ToCards())
+                .WithPlayer("Matthias", "8s 6d".ToCards())
+                .WithPlayer("Guy", "Ad Kd".ToCards())
+                .SimulateWithFullDeck(500);
+
+        //[Benchmark]
+        //public SimulationResultEncapsulated PlayHoldemWithDedicatedHandsContainer()
+        //    => new HoldemSimulationWithHands()
+        //        .WithPlayer("Stefan", "Js Jd".ToCards())
+        //        .WithPlayer("Matthias", "8s 6d".ToCards())
+        //        .WithPlayer("Guy", "Ad Kd".ToCards())
+        //        .SimulateWithFullDeck(100);
 
     }
 }

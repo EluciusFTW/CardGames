@@ -2,6 +2,7 @@
 using CardGames.Core.Extensions;
 using System;
 using CardGames.Playground.Simulations.Holdem;
+using BenchmarkDotNet.Running;
 
 namespace CardGames.Playground.Runner
 {
@@ -10,23 +11,25 @@ namespace CardGames.Playground.Runner
     {
         static void Main()
         {
-            //var results = RunHoldemSimulation(100000);
+            var results = RunHoldemSimulation(10000);
 
-            //PrintWinPercentages(results);
-            //PrintHandDistributions(results);
+            PrintWinPercentages(results);
+            PrintHandDistributions(results);
+            // BenchmarkRunner.Run<HoldemSimulations>();
 
-            var simulations = new HoldemSimulations();
-            simulations.PlayHoldemWithDedicatedHandsContainer(100);
-            simulations.PlayHoldemWithoutDedicatedHandsContainer(100);
+            //var simulations = new HoldemSimulations();
+            //simulations.PlayHoldemWithDedicatedHandsContainer(100);
+            //simulations.PlayHoldemWithoutDedicatedHandsContainer(100);
 
             Console.ReadKey();
         }
 
         private static SimulationResult RunHoldemSimulation(int nrOfHAnds)
-            => new HoldemSimulation()
+            => new StudSimulation()
                 .WithPlayer("Stefan", "Js Jd".ToCards())
                 .WithPlayer("Matthias", "8s 6d".ToCards())
                 .WithPlayer("Guy", "Ad Kd".ToCards())
+                .WithFlop("8d 8h 4d".ToCards())
                 .SimulateWithFullDeck(nrOfHAnds);
 
         private static void PrintWinPercentages(SimulationResult result)

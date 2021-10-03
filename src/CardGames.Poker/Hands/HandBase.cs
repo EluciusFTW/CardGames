@@ -11,8 +11,18 @@ namespace CardGames.Poker.Hands
     public abstract class HandBase : IComparable<HandBase>
     {
         public IReadOnlyCollection<Card> Cards { get; }
-        public long Strength { get; }
-        public HandType Type { get; }
+
+        private long _strength;
+        public long Strength => _strength != default
+            ? _strength
+            : _strength = CalculateStrength();
+
+        private HandType _type;
+        public HandType Type => _type != HandType.Incomplete
+            ? _type
+            : _type = DetermineType();
+
+
         public abstract HandTypeStrengthRanking Ranking { get; }
         public abstract IEnumerable<IReadOnlyCollection<Card>> PossibleHands();
 
@@ -23,15 +33,26 @@ namespace CardGames.Poker.Hands
                 throw new ArgumentException("A poker hand needs at least five cards");
             }
             Cards = cards;
+        }
 
+        protected virtual long CalculateStrength()
+        {
             var handsAndTypes = PossibleHands()
                 .Select(hand => new { hand, type = HandTypeDetermination.DetermineHandType(hand) });
-            Type = HandStrength.GetEffectiveType(handsAndTypes.Select(pair => pair.type), Ranking);
-            Strength = handsAndTypes
+            
+            return handsAndTypes
                 .Where(pair => pair.type == Type)
                 .Select(pair => pair.hand)
                 .Select(hand => HandStrength.Classic(hand, Type))
                 .Max();
+        }
+
+        protected virtual HandType DetermineType()
+        {
+            var handsAndTypes = PossibleHands()
+                .Select(hand => new { hand, type = HandTypeDetermination.DetermineHandType(hand) });
+            
+            return HandStrength.GetEffectiveType(handsAndTypes.Select(pair => pair.type), Ranking);
         }
 
         public static bool operator >(HandBase thisHand, HandBase otherHand)

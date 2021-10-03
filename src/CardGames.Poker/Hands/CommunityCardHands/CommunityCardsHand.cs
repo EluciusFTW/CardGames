@@ -31,20 +31,6 @@ namespace CardGames.Poker.Hands.CommunityCardHands
             HoleCards = holeCards;
             CommunityCards = communityCards;
             Ranking = ranking;
-
-            var handsAndTypes = PossibleHands()
-                .Select(hand => new { hand, type = HandTypeDetermination.DetermineHandType(hand) });
-
-            Type = HandStrength
-                .GetEffectiveType(handsAndTypes.Select(pair => pair.type).ToList());
-
-            var handsOfEffectiveType = handsAndTypes
-                .Where(pair => pair.type == Type)
-                .Select(pair => pair.hand);
-
-            Strength = handsOfEffectiveType
-                .Select(hand => HandStrength.Classic(hand, Type))
-                .Max();
         }
 
         public override IEnumerable<IReadOnlyCollection<Card>> PossibleHands()
