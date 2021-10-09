@@ -8,7 +8,7 @@ using CardGames.Poker.Hands.CommunityCardHands;
 
 namespace CardGames.Playground.Simulations.Holdem
 {
-    public partial class StudSimulation
+    public class HoldemSimulation
     {
         private FrenchDeckDealer _dealer;
         private IList<CommunityCardGamePlayer> _players = new List<CommunityCardGamePlayer>();
@@ -16,7 +16,7 @@ namespace CardGames.Playground.Simulations.Holdem
         private Card _turn;
         private Card _river;
 
-        public StudSimulation WithPlayer(string name, IReadOnlyCollection<Card> holeCards)
+        public HoldemSimulation WithPlayer(string name, IReadOnlyCollection<Card> holeCards)
         {
             if (holeCards.Count > 2)
             {
@@ -26,7 +26,7 @@ namespace CardGames.Playground.Simulations.Holdem
             return this;
         }
 
-        public StudSimulation WithFlop(IReadOnlyCollection<Card> holeCards)
+        public HoldemSimulation WithFlop(IReadOnlyCollection<Card> holeCards)
         {
             if (holeCards.Count != 3)
             {
@@ -36,31 +36,31 @@ namespace CardGames.Playground.Simulations.Holdem
             return this;
         }
 
-        public StudSimulation WithTurn(Card card)
+        public HoldemSimulation WithTurn(Card card)
         {
             _turn = card;
             return this;
         }
 
-        public StudSimulation WithRiver(Card card)
+        public HoldemSimulation WithRiver(Card card)
         {
             _river = card;
             return this;
         }
 
-        public SimulationResult SimulateWithFullDeck(int nrOfHands)
+        public HoldemSimulationResult SimulateWithFullDeck(int nrOfHands)
         {
             _dealer = FrenchDeckDealer.WithFullDeck();
             return Play(nrOfHands);
         }
 
-        private SimulationResult Play(int nrOfHands)
+        private HoldemSimulationResult Play(int nrOfHands)
         {
             var results = Enumerable
                 .Range(1, nrOfHands)
                 .Select(_ => PlayHand());
 
-            return new SimulationResult(nrOfHands, results.ToList());
+            return new HoldemSimulationResult(nrOfHands, results.ToList());
         }
 
         private IDictionary<string, HoldemHand> PlayHand()

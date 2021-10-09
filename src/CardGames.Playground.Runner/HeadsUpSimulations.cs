@@ -26,24 +26,24 @@ namespace CardGames.Playground.Runner
     public class HoldemSimulations
     {
         [Benchmark]
-        public SimulationResult PlayHoldem100()
-            => new StudSimulation()
+        public HoldemSimulationResult PlayHoldem100()
+            => new HoldemSimulation()
                 .WithPlayer("Stefan", "Js Jd".ToCards())
                 .WithPlayer("Matthias", "8s 6d".ToCards())
                 .WithPlayer("Guy", "Ad Kd".ToCards())
                 .SimulateWithFullDeck(100);
 
         [Benchmark]
-        public SimulationResult PlayHoldem50()
-            => new StudSimulation()
+        public HoldemSimulationResult PlayHoldem50()
+            => new HoldemSimulation()
                 .WithPlayer("Stefan", "Js Jd".ToCards())
                 .WithPlayer("Matthias", "8s 6d".ToCards())
                 .WithPlayer("Guy", "Ad Kd".ToCards())
                 .SimulateWithFullDeck(50);
 
         [Benchmark]
-        public SimulationResult PlayHoldem500()
-            => new StudSimulation()
+        public HoldemSimulationResult PlayHoldem500()
+            => new HoldemSimulation()
                 .WithPlayer("Stefan", "Js Jd".ToCards())
                 .WithPlayer("Matthias", "8s 6d".ToCards())
                 .WithPlayer("Guy", "Ad Kd".ToCards())
