@@ -5,7 +5,7 @@ using System.Linq;
 using CardGames.Poker.Hands.HandTypes;
 using CardGames.Poker.Hands.Strength;
 
-namespace CardGames.Poker.Hands
+namespace CardGames.Poker.Hands.CommunityCardHands
 {
     public class CommunityCardsHand : HandBase
     {
@@ -14,15 +14,14 @@ namespace CardGames.Poker.Hands
 
         public IReadOnlyCollection<Card> HoleCards { get; }
         public IReadOnlyCollection<Card> CommunityCards { get; }
-
-        public override long Strength { get; }
-        public override HandType Type { get; }
-
+        public override HandTypeStrengthRanking Ranking { get; }
+       
         public CommunityCardsHand(
             int leastNumberOfHoleCardsToBeUsed,
             int greatestNumberOfHoleCardsToBeUsed,
             IReadOnlyCollection<Card> holeCards,
-            IReadOnlyCollection<Card> communityCards)
+            IReadOnlyCollection<Card> communityCards,
+            HandTypeStrengthRanking ranking)
             : base(holeCards
                   .Concat(communityCards)
                   .ToList())
@@ -31,23 +30,10 @@ namespace CardGames.Poker.Hands
             _greatestNumberOfHoleCardsToBeUsed = greatestNumberOfHoleCardsToBeUsed;
             HoleCards = holeCards;
             CommunityCards = communityCards;
-
-            var handsAndTypes = PossibleHands()
-                .Select(hand => new { hand, type = HandTypeDetermination.DetermineHandType(hand) });
-
-            Type = HandStrength
-                .GetEffectiveType(handsAndTypes.Select(pair => pair.type).ToList());
-
-            var handsOfEffectiveType = handsAndTypes
-                .Where(pair => pair.type == Type)
-                .Select(pair => pair.hand);
-
-            Strength = handsOfEffectiveType
-                .Select(hand => HandStrength.Classic(hand, Type))
-                .Max();
+            Ranking = ranking;
         }
 
-        private IEnumerable<IReadOnlyCollection<Card>> PossibleHands()
+        public override IEnumerable<IReadOnlyCollection<Card>> PossibleHands()
         {
             var nrOfCombos = _greatestNumberOfHoleCardsToBeUsed - _leastNumberOfHoleCardsToBeUsed + 1;
             return Enumerable

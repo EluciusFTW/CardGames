@@ -1,20 +1,21 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using CardGames.Poker.Hands;
 using CardGames.Poker.Hands.HandTypes;
+using CardGames.Poker.Hands.StudHands;
 
-namespace CardGames.Playground.Simulations.Holdem
+namespace CardGames.Playground.Simulations.Stud
 {
-    public class SimulationResult
+    public class StudSimulationResult
     {
         private readonly int _nrOfHands;
 
-        public SimulationResult(int nrOfHands, IReadOnlyCollection<IDictionary<string, HoldemHand>> hands)
+        public StudSimulationResult(int nrOfHands, IReadOnlyCollection<IDictionary<string, SevenCardStudHand>> hands)
         {
             _nrOfHands = nrOfHands;
             Hands = hands;
         }
-        public IReadOnlyCollection<IDictionary<string, HoldemHand>> Hands { get; init; }
+
+        public IReadOnlyCollection<IDictionary<string, SevenCardStudHand>> Hands { get; init; }
 
         public IEnumerable<string> GetPlayers => Hands.First().Keys;
 

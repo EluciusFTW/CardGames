@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace CardGames.Poker.Hands
+namespace CardGames.Poker.Hands.DrawHands
 {
     public abstract class FiveCardHand : HandBase
     {
@@ -13,6 +13,6 @@ namespace CardGames.Poker.Hands
             {
                 throw new ArgumentException("A five card hand requires exactly 5 cards!");
             }
-        } 
+        }
     }
 }

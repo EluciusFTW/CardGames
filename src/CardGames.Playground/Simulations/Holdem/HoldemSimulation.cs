@@ -4,14 +4,14 @@ using System.Linq;
 using CardGames.Core.French.Cards;
 using CardGames.Core.French.Dealers;
 using CardGames.Core.Extensions;
-using CardGames.Poker.Hands;
+using CardGames.Poker.Hands.CommunityCardHands;
 
 namespace CardGames.Playground.Simulations.Holdem
 {
     public class HoldemSimulation
     {
         private FrenchDeckDealer _dealer;
-        private IList<Player> _players = new List<Player>();
+        private IList<CommunityCardGamePlayer> _players = new List<CommunityCardGamePlayer>();
         private IReadOnlyCollection<Card> _flop = new List<Card>();
         private Card _turn;
         private Card _river;
@@ -22,7 +22,7 @@ namespace CardGames.Playground.Simulations.Holdem
             {
                 throw new ArgumentException($"{name} has too many hole cards to play Holdem.");
             }
-            _players.Add(new Player { Name = name, GivenHoleCards = holeCards.ToList() });
+            _players.Add(new CommunityCardGamePlayer { Name = name, GivenHoleCards = holeCards.ToList() });
             return this;
         }
 
@@ -48,19 +48,19 @@ namespace CardGames.Playground.Simulations.Holdem
             return this;
         }
 
-        public SimulationResult SimulateWithFullDeck(int nrOfHands)
+        public HoldemSimulationResult SimulateWithFullDeck(int nrOfHands)
         {
             _dealer = FrenchDeckDealer.WithFullDeck();
             return Play(nrOfHands);
         }
 
-        private SimulationResult Play(int nrOfHands)
+        private HoldemSimulationResult Play(int nrOfHands)
         {
             var results = Enumerable
                 .Range(1, nrOfHands)
                 .Select(_ => PlayHand());
 
-            return new SimulationResult(nrOfHands, results.ToList());
+            return new HoldemSimulationResult(nrOfHands, results.ToList());
         }
 
         private IDictionary<string, HoldemHand> PlayHand()
@@ -104,15 +104,5 @@ namespace CardGames.Playground.Simulations.Holdem
                     var missingCards = 2 - player.GivenHoleCards.Count;
                     player.DealtHoleCards = _dealer.DealCards(missingCards);
                 });
-
-
-        private class Player
-        {
-            public string Name { get; init; }
-            public IReadOnlyCollection<Card> GivenHoleCards { get; init; }
-            public IReadOnlyCollection<Card> DealtHoleCards { get; set; }
-
-            public IEnumerable<Card> Cards => GivenHoleCards.Concat(DealtHoleCards);
-        }
     }
 }

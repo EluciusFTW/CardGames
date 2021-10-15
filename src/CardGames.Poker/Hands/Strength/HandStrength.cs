@@ -12,9 +12,15 @@ namespace CardGames.Poker.Hands.Strength
     {
         private static long prefixMultiplier = 10000000000;
 
-        public static HandType GetEffectiveType(IReadOnlyCollection<HandType> handTypes)
+        public static HandType GetEffectiveType(IEnumerable<HandType> handTypes)
             => handTypes
                 .Select(type => new { type, Value = HandTypeStrength.Classic(type) })
+                .OrderByDescending(pair => pair.Value)
+                .First().type;
+
+        public static HandType GetEffectiveType(IEnumerable<HandType> handTypes, HandTypeStrengthRanking ranking)
+            => handTypes
+                .Select(type => new { type, Value = HandTypeStrength.ByRanking(ranking, type) })
                 .OrderByDescending(pair => pair.Value)
                 .First().type;
 

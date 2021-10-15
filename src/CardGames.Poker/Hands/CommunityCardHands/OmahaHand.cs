@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using CardGames.Poker.Hands.Strength;
 
-namespace CardGames.Poker.Hands
+namespace CardGames.Poker.Hands.CommunityCardHands
 {
     public sealed class OmahaHand : CommunityCardsHand
     {
         public OmahaHand(IReadOnlyCollection<Card> holeCards, IReadOnlyCollection<Card> communityCards)
-            : base(2, 2, holeCards, communityCards)
+            : base(2, 2, holeCards, communityCards, HandTypeStrengthRanking.Classic)
         {
             if (holeCards.Count() != 4)
             {

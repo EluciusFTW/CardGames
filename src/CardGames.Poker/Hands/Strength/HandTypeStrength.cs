@@ -7,6 +7,14 @@ namespace CardGames.Poker.Hands.Strength
 {
     public static class HandTypeStrength
     {
+        public static int ByRanking(HandTypeStrengthRanking ranking, HandType type)
+            => ranking switch
+            {
+                HandTypeStrengthRanking.Classic => Classic(type),
+                HandTypeStrengthRanking.ShortDeck => ShortDeck(type),
+                _ => throw new NotImplementedException("The ranking is not implemented")
+            };
+
         public static int Classic(HandType type)
             => type switch
             {

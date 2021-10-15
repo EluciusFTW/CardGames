@@ -3,19 +3,21 @@ using System.Collections.Generic;
 using CardGames.Poker.Hands.HandTypes;
 using CardGames.Poker.Hands.Strength;
 
-namespace CardGames.Poker.Hands
+namespace CardGames.Poker.Hands.DrawHands
 {
     public sealed class DrawHand : FiveCardHand
     {
         public DrawHand(IReadOnlyCollection<Card> cards)
             : base(cards)
         {
-            Strength = HandStrength.Classic(Cards, Type);
-            Type = HandTypeDetermination.DetermineHandType(Cards);
+            Ranking = HandTypeStrengthRanking.Classic;
         }
 
-        public override long Strength { get; }
+        public override HandTypeStrengthRanking Ranking { get; }
 
-        public override HandType Type { get; }
+        public override IEnumerable<IReadOnlyCollection<Card>> PossibleHands()
+        {
+            yield return Cards;
+        }
     }
 }
