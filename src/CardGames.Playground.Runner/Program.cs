@@ -6,48 +6,42 @@ using CardGames.Playground.Simulations.Stud;
 
 namespace CardGames.Playground.Runner
 {
-
     public class Program
     {
         static void Main()
         {
-            
-            var results = RunStudSimulation(10000);
+            var results = RunHoldemSimulation(10000);
 
             PrintWinPercentages(results);
             PrintHandDistributions(results);
 
-            // var results = RunHoldemSimulation(10000);
-            // BenchmarkRunner.Run<HoldemSimulations>();
-
             Console.ReadKey();
         }
-               
+
         private static HoldemSimulationResult RunHoldemSimulation(int nrOfHAnds)
-            => new HoldemSimulation()
-                .WithPlayer("Stefan", "Js Jd".ToCards())
-                .WithPlayer("Matthias", "8s 6d".ToCards())
-                .WithPlayer("Guy", "Ad Kd".ToCards())
-                .WithFlop("8d 8h 4d".ToCards())
-                .SimulateWithFullDeck(nrOfHAnds);
+           => new HoldemSimulation()
+               .WithPlayer("John", "Js Jd".ToCards())
+               .WithPlayer("Jeremy", "8s 6d".ToCards())
+               .WithPlayer("Jarvis", "Ad".ToCards())
+               .WithFlop("8d 8h 4d".ToCards())
+               .SimulateWithFullDeck(nrOfHAnds);
 
         private static StudSimulationResult RunStudSimulation(int nrOfHAnds)
             => new SevenCardStudSimulation()
                 .WithPlayer(
-                    new StudPlayer("Stefan")
+                    new StudPlayer("John")
                         .WithHoleCards("Js Jd".ToCards())
                         .WithBoardCards("Qc".ToCards()))
                 .WithPlayer(
-                    new StudPlayer("Matthias")
+                    new StudPlayer("Jeremy")
                         .WithHoleCards("3s 4s".ToCards())
                         .WithBoardCards("7s".ToCards()))
                 .WithPlayer(
-                    new StudPlayer("Guy")
-                        .WithHoleCards("Ad Kd".ToCards())
+                    new StudPlayer("Jarvis")
                         .WithBoardCards("Tc".ToCards()))
                 .Simulate(nrOfHAnds);
 
-        private static void PrintWinPercentages(StudSimulationResult result)
+        private static void PrintWinPercentages(HoldemSimulationResult result)
             => result
                 .GroupByWins()
                 .ForEach(player =>
@@ -55,7 +49,7 @@ namespace CardGames.Playground.Runner
                     Console.WriteLine($"{player.Name} won {player.Wins} hands => {player.WinPercentage:P2}");
                 });
 
-        private static void PrintHandDistributions(StudSimulationResult results)
+        private static void PrintHandDistributions(HoldemSimulationResult results)
             => results
                 .AllMadeHandDistributions()
                 .ForEach(distribution =>
@@ -67,6 +61,5 @@ namespace CardGames.Playground.Runner
                         Console.WriteLine($" * {typeDistribution.Type} - {typeDistribution.Occurences} times ({typeDistribution.Frequency:P2})");
                     });
                 });
-
     }
 }

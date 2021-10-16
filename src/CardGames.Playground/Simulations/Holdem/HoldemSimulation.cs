@@ -54,6 +54,12 @@ namespace CardGames.Playground.Simulations.Holdem
             return Play(nrOfHands);
         }
 
+        public HoldemSimulationResult SimulateWitShortDeck(int nrOfHands)
+        {
+            _dealer = FrenchDeckDealer.WithShortDeck();
+            return Play(nrOfHands);
+        }
+
         private HoldemSimulationResult Play(int nrOfHands)
         {
             var results = Enumerable

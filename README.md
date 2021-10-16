@@ -144,17 +144,62 @@ This is very useful and increases performance in simulation scenarios where cert
 # CardGames.Poker
 
 ## Hands
-Currently, the library contains domain models for: 5-card draw hands, Holdem hands and Omaha hands. 
-In fact, the latter two derive from a more generic hand model called `CommunityCardsHand`, which can be used to model any kind of community card hand (any number of community cards, any number of hole cards, any requirement how many of them have to be used for a hand, and how many must at least be used. So in these parameters, a Holdem hand is (3-5, 2, 0, 2) and a Omaha hand (3-5, 4, 2, 2)). So using this as a basis, it is easy to implement, e.g., 5-card PLO and other lesser known variants.
+The library contains domain models for hands in: 5-card draw, Holdem, Omaha and Stud. 
+
+The Holdem and Omaha hands derive from a more generic hand model called `CommunityCardsHand`, which can be used to model any kind of community card hand (any number of community cards, any number of hole cards, any requirement how many of them have to be used for a hand, and how many must at least be used. So in these parameters, a Holdem hand is (3-5, 2, 0, 2) and a Omaha hand (3-5, 4, 2, 2)). So using this as a basis, it is easy to implement, e.g., 5-card PLO and other lesser known variants.
 
 Hands all implement `IComparable`, and the operators "<, >" are implemented by default. This is accompished by using two properties of the base class of any hand:  
-Strength (of type `long`) and Type (e.g. `HandType.Flush`). The calculations of the strength and type are directly performed when constructing the hand, and they are designed in such a fashion that the ordering of the types can be provided as well (because, e.g., in short deck, a flush beats a full-house). The classical oredrign as well as the ordering for short-deck poker are provided in the class `HandTypeStrength`.
+Strength (of type `long`) and Type (e.g. `HandType.Flush`). The calculations of the strength and type are directly performed when constructing the hand, and they are designed in such a fashion that the ordering of the types can be provided as well (because, e.g., in short deck, a flush beats a full-house). The classical orderign as well as the ordering for short-deck poker are provided in the class `HandTypeStrength`.
+
+## Simulations
+The library contains models for Holdem (full and short deck) and Stud simulations (currently still in the `CardGames.Playground` project, but they will soon move to the `CardGames.Poker` project), and other simulations can easily be built in similar fashion. Both Simulations are configurable with a fluent builder pattern. Here's an example of a Holdem simulation configuration:
+```cs
+// any number of players can be added
+// each players hole cards can be specified by providing zero, one or two cards
+// optionally, a flop/turn/river can be provided
+// finally the simulation is executed by calling SimulateWithFullDeck resp. SimulateWithShortDeck
+private HoldemSimulationResult RunHoldemSimulation(int nrOfHAnds)
+    => new HoldemSimulation()
+        .WithPlayer("John", "Js Jd".ToCards())
+        .WithPlayer("Jeremy", "8s 6d".ToCards())
+        .WithPlayer("Jarvis", "Ad".ToCards()) 
+        .WithFlop("8d 8h 4d".ToCards()) 
+        .SimulateWithFullDeck(nrOfHAnds);
+````
+
+The Stud simulation works similarly. However, since a player has different kinds of cards, one provides any number of `StudPlayers` to the simulation, which have a builder of their own. Here's what that looks like in an example:
+````cs
+// again, any number of players can be specified
+// and each players hole and board cards can be specified individually
+private StudSimulationResult RunStudSimulation(int nrOfHAnds)
+    => new SevenCardStudSimulation()
+        .WithPlayer(
+            new StudPlayer("John")
+                .WithHoleCards("Js Jd".ToCards())
+                .WithBoardCards("Qc".ToCards()))
+        .WithPlayer(
+            new StudPlayer("Jeremy")
+                .WithHoleCards("3s 4s".ToCards())
+                .WithBoardCards("7s".ToCards()))
+        .WithPlayer(
+            new StudPlayer("Jarvis")
+                .WithBoardCards("Tc".ToCards()))
+        .Simulate(nrOfHAnds);
+````
+
+If you want to play around with these simulations, there is a console program in `CardGames.Playground.Runner` where you can run any simulation. It also contains some benchmarks (using [BenchmarkDotNet](https://benchmarkdotnet.org/)), which you can run. In fact, they have been instrumental in finding the right balance between design and performance, big shoutout to them!
+
+The simulation result classes contain a complete collection of all run hands, as well as some predefined queries and aggregations, which can easily be extendend and customized due to the fact that the full collection of hands is available. 
+
+Here is a simple printout of the above Holdem simulation:
+![Screenshot of Stud Simulation](./sample/stud-simulation-screenshot.png)
+
+Here is a simple printout of the above Stud simulation:
+![Screenshot of Holdem Simulation](./sample/holdem-simulation-screenshot.png)
 
 
 ### Disclaimer
 :hand: Although this description uses the word _package_ multiple times, it is not yet published as a nuget package, as it is still under development.
-
-
 
 ## Feedback and Contributing
 All feedback welcome!
