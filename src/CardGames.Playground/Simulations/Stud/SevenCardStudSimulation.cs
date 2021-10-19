@@ -2,6 +2,7 @@
 using System.Linq;
 using CardGames.Core.French.Dealers;
 using CardGames.Core.Extensions;
+using CardGames.Core.French.Cards;
 using CardGames.Poker.Hands.StudHands;
 
 namespace CardGames.Playground.Simulations.Stud
@@ -10,10 +11,17 @@ namespace CardGames.Playground.Simulations.Stud
     {
         private FrenchDeckDealer _dealer;
         private IList<StudPlayer> _players = new List<StudPlayer>();
+        private IReadOnlyCollection<Card> _deadCards = new List<Card>();
 
         public SevenCardStudSimulation WithPlayer(StudPlayer player)
         {
             _players.Add(player);
+            return this;
+        }
+
+        public SevenCardStudSimulation WithDeadCards(IReadOnlyCollection<Card> cards)
+        {
+            _deadCards = cards;
             return this;
         }
 
@@ -35,16 +43,20 @@ namespace CardGames.Playground.Simulations.Stud
         private IDictionary<string, SevenCardStudHand> PlayHand()
         {
             _dealer.Shuffle();
-            RemoveKnownCardsFromDeck();
+            RemovePlayerCardsFromDeck();
+            RemoveDeadCardsFromDeck();
             DealMissingHoleCards();
             DealMissingBoardCards();
 
             return _players.ToDictionary(
-                player => player.Name, 
+                player => player.Name,
                 player => new SevenCardStudHand(player.HoleCards.Take(2).ToList(), player.BoardCards.ToList(), player.HoleCards.Last()));
         }
 
-        private void RemoveKnownCardsFromDeck()
+        private void RemoveDeadCardsFromDeck()
+            => _deadCards.ForEach(card => _dealer.DealSpecific(card));
+
+        private void RemovePlayerCardsFromDeck()
             => _players
                 .SelectMany(player => player.Cards)
                 .ForEach(card => _dealer.DealSpecific(card));
@@ -58,9 +70,9 @@ namespace CardGames.Playground.Simulations.Stud
 
         private void DealMissingBoardCards()
             => _players.ForEach(player =>
-            {
-                var missingCards = 4 - player.GivenBoardCards.Count;
-                player.DealtBoardCards = _dealer.DealCards(missingCards);
-            });
+                {
+                    var missingCards = 4 - player.GivenBoardCards.Count;
+                    player.DealtBoardCards = _dealer.DealCards(missingCards);
+                });
     }
 }

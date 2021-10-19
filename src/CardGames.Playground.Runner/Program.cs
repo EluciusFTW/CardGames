@@ -1,6 +1,7 @@
 ﻿using CardGames.Core.French.Cards.Extensions;
 using CardGames.Core.Extensions;
 using System;
+using System.Linq;
 using CardGames.Playground.Simulations.Holdem;
 using CardGames.Playground.Simulations.Stud;
 
@@ -10,7 +11,7 @@ namespace CardGames.Playground.Runner
     {
         static void Main()
         {
-            var results = RunHoldemSimulation(10000);
+            var results = RunStudSimulation(10000);
 
             PrintWinPercentages(results);
             PrintHandDistributions(results);
@@ -39,17 +40,19 @@ namespace CardGames.Playground.Runner
                 .WithPlayer(
                     new StudPlayer("Jarvis")
                         .WithBoardCards("Tc".ToCards()))
+                .WithDeadCards("Qs Qh Jc 6s".ToCards())
                 .Simulate(nrOfHands);
 
-        private static void PrintWinPercentages(HoldemSimulationResult result)
+        private static void PrintWinPercentages(StudSimulationResult result)
             => result
                 .GroupByWins()
+                .OrderByDescending(player => player.WinPercentage)
                 .ForEach(player =>
                 {
                     Console.WriteLine($"{player.Name} won {player.Wins} hands => {player.WinPercentage:P2}");
                 });
 
-        private static void PrintHandDistributions(HoldemSimulationResult results)
+        private static void PrintHandDistributions(StudSimulationResult results)
             => results
                 .AllMadeHandDistributions()
                 .ForEach(distribution =>

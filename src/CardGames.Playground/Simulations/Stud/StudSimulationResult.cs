@@ -15,7 +15,7 @@ namespace CardGames.Playground.Simulations.Stud
             Hands = hands;
         }
 
-        public IReadOnlyCollection<IDictionary<string, SevenCardStudHand>> Hands { get; init; }
+        public IReadOnlyCollection<IDictionary<string, SevenCardStudHand>> Hands { get; }
 
         public IEnumerable<string> GetPlayers => Hands.First().Keys;
 
@@ -28,7 +28,7 @@ namespace CardGames.Playground.Simulations.Stud
 
         public IDictionary<string, IEnumerable<(HandType Type, int Occurences, decimal Frequency)>> AllMadeHandDistributions()
             => GetPlayers
-                .ToDictionary(player => player, player => MadeHandDistributionOf(player));
+                .ToDictionary(player => player, MadeHandDistributionOf);
 
         public IEnumerable<(HandType Type, int Occurences, decimal Frequency)> MadeHandDistributionOf(string name)
             => Hands
