@@ -66,7 +66,6 @@ namespace CardGames.Core.Tests.Dealer
         [Fact]
         public void Can_Deal_Several_Cards_At_Once()
         {
-            var expectedCard = new TestCard(777);
             _deck
                 .NumberOfCardsLeft()
                 .Returns(21, 20, 19);

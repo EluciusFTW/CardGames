@@ -49,12 +49,9 @@ namespace CardGames.Core.French.Tests.Dealers
         public void Can_Deal_Exactly_Four_Cards_Of_Given_Value(int value)
         {
             var dealer = FrenchDeckDealer.WithFullDeck();
-            Enumerable.Repeat(true, 4)
-                .ForEach(__ =>
-                {
-                    var success = dealer.TryDealCardOfValue(value, out _);
-                    success.Should().BeTrue();
-                });
+            Enumerable
+                .Repeat(true, 4)
+                .ForEach(__ => dealer.TryDealCardOfValue(value, out _).Should().BeTrue());
 
             var success = dealer.TryDealCardOfValue(value, out _);
 
@@ -68,12 +65,9 @@ namespace CardGames.Core.French.Tests.Dealers
         public void Can_Deal_Exactly_Nine_Cards_Of_Given_Suit_From_A_Short_Deck(Suit suit)
         {
             var dealer = FrenchDeckDealer.WithShortDeck();
-            Enumerable.Repeat(true, 9)
-                .ForEach(__ =>
-                {
-                    var success = dealer.TryDealCardOfSuit(suit, out _);
-                    success.Should().BeTrue();
-                });
+            Enumerable
+                .Repeat(true, 9)
+                .ForEach(__ => dealer.TryDealCardOfSuit(suit, out _).Should().BeTrue());
 
             var success = dealer.TryDealCardOfSuit(suit, out _);
 

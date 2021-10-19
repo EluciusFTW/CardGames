@@ -9,7 +9,7 @@ namespace CardGames.Playground.Simulations.Dummy
 {
     public class HeadsUpDummySimulation
     {
-        private Dealer<Card> _dealer;
+        private readonly Dealer<Card> _dealer;
 
         private HeadsUpDummySimulation(Dealer<Card> dealer)
         {
@@ -25,12 +25,12 @@ namespace CardGames.Playground.Simulations.Dummy
         public HeadsUpResult Simulate(
             int numberOfHands,
             int numberOfCardsForPlayerOne,
-            int NumberOfCardsForPlayerTwo,
+            int numberOfCardsForPlayerTwo,
             Func<IReadOnlyCollection<Card>, IReadOnlyCollection<Card>, bool?> playerOneWins)
         {
             var results = Enumerable
                 .Repeat(false, numberOfHands)
-                .Select(_ => PlaySingleHAnd(numberOfCardsForPlayerOne, NumberOfCardsForPlayerTwo, playerOneWins))
+                .Select(_ => PlaySingleHAnd(numberOfCardsForPlayerOne, numberOfCardsForPlayerTwo, playerOneWins))
                 .ToList();
 
             return new HeadsUpResult(results.Count(x => x == true), results.Count(x => x == false));
@@ -38,12 +38,12 @@ namespace CardGames.Playground.Simulations.Dummy
 
         private bool? PlaySingleHAnd(
             int numberOfCardsForPlayerOne,
-            int NumberOfCardsForPlayerTwo,
+            int numberOfCardsForPlayerTwo,
             Func<IReadOnlyCollection<Card>, IReadOnlyCollection<Card>, bool?> playerOneWins)
         {
             _dealer.Shuffle();
             var cardsOfPlayerOne = _dealer.DealCards(numberOfCardsForPlayerOne);
-            var cardsOfPlayerTwo = _dealer.DealCards(NumberOfCardsForPlayerTwo);
+            var cardsOfPlayerTwo = _dealer.DealCards(numberOfCardsForPlayerTwo);
 
             return playerOneWins(cardsOfPlayerOne, cardsOfPlayerTwo);
         }

@@ -90,8 +90,7 @@ namespace CardGames.Core.Extensions
                 return Enumerable.Empty<IEnumerable<T>>();
             }
 
-            var initialValue = source
-                .Select(item => new[] { item }.AsEnumerable());
+            var initialValue = source.Select(item => new[] { item }.AsEnumerable());
 
             return Enumerable
                 .Range(1, power - 1)

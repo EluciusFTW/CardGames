@@ -1,6 +1,5 @@
 ﻿using CardGames.Core.French.Cards;
 using System.Collections.Generic;
-using CardGames.Poker.Hands.HandTypes;
 using CardGames.Poker.Hands.Strength;
 
 namespace CardGames.Poker.Hands.DrawHands

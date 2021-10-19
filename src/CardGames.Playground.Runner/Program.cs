@@ -18,15 +18,15 @@ namespace CardGames.Playground.Runner
             Console.ReadKey();
         }
 
-        private static HoldemSimulationResult RunHoldemSimulation(int nrOfHAnds)
+        private static HoldemSimulationResult RunHoldemSimulation(int nrOfHands)
            => new HoldemSimulation()
                .WithPlayer("John", "Js Jd".ToCards())
                .WithPlayer("Jeremy", "8s 6d".ToCards())
                .WithPlayer("Jarvis", "Ad".ToCards())
                .WithFlop("8d 8h 4d".ToCards())
-               .SimulateWithFullDeck(nrOfHAnds);
+               .SimulateWithFullDeck(nrOfHands);
 
-        private static StudSimulationResult RunStudSimulation(int nrOfHAnds)
+        private static StudSimulationResult RunStudSimulation(int nrOfHands)
             => new SevenCardStudSimulation()
                 .WithPlayer(
                     new StudPlayer("John")
@@ -39,7 +39,7 @@ namespace CardGames.Playground.Runner
                 .WithPlayer(
                     new StudPlayer("Jarvis")
                         .WithBoardCards("Tc".ToCards()))
-                .Simulate(nrOfHAnds);
+                .Simulate(nrOfHands);
 
         private static void PrintWinPercentages(HoldemSimulationResult result)
             => result

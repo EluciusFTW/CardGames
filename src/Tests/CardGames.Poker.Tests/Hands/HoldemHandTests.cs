@@ -1,5 +1,4 @@
-﻿using CardGames.Poker.Hands;
-using CardGames.Poker.Hands.HandTypes;
+﻿using CardGames.Poker.Hands.HandTypes;
 using CardGames.Core.French.Cards.Extensions;
 using Xunit;
 using FluentAssertions;

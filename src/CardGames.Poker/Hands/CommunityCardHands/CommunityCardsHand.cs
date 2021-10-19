@@ -2,20 +2,19 @@
 using CardGames.Core.Extensions;
 using System.Collections.Generic;
 using System.Linq;
-using CardGames.Poker.Hands.HandTypes;
 using CardGames.Poker.Hands.Strength;
 
 namespace CardGames.Poker.Hands.CommunityCardHands
 {
     public class CommunityCardsHand : HandBase
     {
-        protected int _leastNumberOfHoleCardsToBeUsed;
-        protected int _greatestNumberOfHoleCardsToBeUsed;
+        protected readonly int LeastNumberOfHoleCardsToBeUsed;
+        protected readonly int GreatestNumberOfHoleCardsToBeUsed;
 
         public IReadOnlyCollection<Card> HoleCards { get; }
         public IReadOnlyCollection<Card> CommunityCards { get; }
         public override HandTypeStrengthRanking Ranking { get; }
-       
+
         public CommunityCardsHand(
             int leastNumberOfHoleCardsToBeUsed,
             int greatestNumberOfHoleCardsToBeUsed,
@@ -26,8 +25,8 @@ namespace CardGames.Poker.Hands.CommunityCardHands
                   .Concat(communityCards)
                   .ToList())
         {
-            _leastNumberOfHoleCardsToBeUsed = leastNumberOfHoleCardsToBeUsed;
-            _greatestNumberOfHoleCardsToBeUsed = greatestNumberOfHoleCardsToBeUsed;
+            LeastNumberOfHoleCardsToBeUsed = leastNumberOfHoleCardsToBeUsed;
+            GreatestNumberOfHoleCardsToBeUsed = greatestNumberOfHoleCardsToBeUsed;
             HoleCards = holeCards;
             CommunityCards = communityCards;
             Ranking = ranking;
@@ -35,27 +34,23 @@ namespace CardGames.Poker.Hands.CommunityCardHands
 
         public override IEnumerable<IReadOnlyCollection<Card>> PossibleHands()
         {
-            var nrOfCombos = _greatestNumberOfHoleCardsToBeUsed - _leastNumberOfHoleCardsToBeUsed + 1;
+            var nrOfCombos = GreatestNumberOfHoleCardsToBeUsed - LeastNumberOfHoleCardsToBeUsed + 1;
             return Enumerable
-                .Range(_leastNumberOfHoleCardsToBeUsed, nrOfCombos)
+                .Range(LeastNumberOfHoleCardsToBeUsed, nrOfCombos)
                 .SelectMany(PossibleHandsWithFixedNumberOfHoleCards);
         }
 
         private IEnumerable<IReadOnlyCollection<Card>> PossibleHandsWithFixedNumberOfHoleCards(int numberOfHoleCards)
         {
-            var holeCardCombos = HoleCards.SubsetsOfSize(numberOfHoleCards);
             var communityCombos = CommunityCards.SubsetsOfSize(5 - numberOfHoleCards);
-
-            if (!holeCardCombos.Any())
-            {
-                return communityCombos.Select(cards => cards.ToList());
-            }
-
-            return holeCardCombos
-                .CartesianProduct(communityCombos)
-                .Select(sequences => sequences
-                    .SelectMany(cards => cards)
-                    .ToList());
+            
+            return numberOfHoleCards == 0
+                ? communityCombos.Select(cards => cards.ToList())
+                : HoleCards.SubsetsOfSize(numberOfHoleCards)
+                    .CartesianProduct(communityCombos)
+                    .Select(sequences => sequences
+                        .SelectMany(cards => cards)
+                        .ToList());
         }
     }
 }
