@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "CardGames.Poker.CLI": {
+      "commandName": "Project",
+      "commandLineArgs": " stud-hi"
+    }
+  }
+}
