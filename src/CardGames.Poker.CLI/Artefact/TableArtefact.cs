@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace CardGames.Playground.Artefact
+namespace CardGames.Poker.CLI.Artefact
 {
     public class TableArtefact : IReportArtefact
     {

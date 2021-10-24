@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CardGames.Playground.Artefact
+namespace CardGames.Poker.CLI.Artefact
 {
     public class CollectionArtefact : IReportArtefact
     {

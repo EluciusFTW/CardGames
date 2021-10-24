@@ -1,6 +1,7 @@
 ﻿using CardGames.Core.French.Cards;
 using CardGames.Core.French.Cards.Extensions;
 using Spectre.Console;
+using System;
 using System.Collections.Generic;
 
 namespace CardGames.Poker.CLI.Logging
@@ -28,9 +29,10 @@ namespace CardGames.Poker.CLI.Logging
                 })
                 .AllowEmpty();
 
-            return AnsiConsole
-                .Prompt(cardsPrompt)
-                .ToCards();
+            var input = AnsiConsole.Prompt(cardsPrompt);
+            return !string.IsNullOrEmpty(input)
+                ? input.ToCards()
+                : Array.Empty<Card>();
         }
 
         internal static Card PromptForCard(string message)

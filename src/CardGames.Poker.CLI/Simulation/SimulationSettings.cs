@@ -1,7 +1,7 @@
 ﻿using Spectre.Console.Cli;
 using System.ComponentModel;
 
-namespace CardGames.Poker.CLI
+namespace CardGames.Poker.CLI.Simulation
 {
     internal class SimulationSettings : CommandSettings
     {

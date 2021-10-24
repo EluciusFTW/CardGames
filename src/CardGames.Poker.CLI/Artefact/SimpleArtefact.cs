@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CardGames.Playground.Artefact
+namespace CardGames.Poker.CLI.Artefact
 {
     public class SimpleArtefact : IReportArtefact
     {

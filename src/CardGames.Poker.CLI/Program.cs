@@ -1,4 +1,5 @@
-﻿using Spectre.Console.Cli;
+﻿using CardGames.Poker.CLI.Simulation;
+using Spectre.Console.Cli;
 
 namespace CardGames.Poker.CLI
 {
@@ -13,7 +14,7 @@ namespace CardGames.Poker.CLI
                 configuration.AddBranch<SimulationSettings>("sim", sim =>
                 {
                     sim
-                        .AddCommand<StudSimulation>("stud-hi")
+                        .AddCommand<StudSimulationCommand>("stud-hi")
                         .WithAlias("7cs-hi")
                         .WithAlias("stud")
                         .WithDescription("Runs a 7-card Stud hi simulation.");
