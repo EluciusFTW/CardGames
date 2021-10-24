@@ -11,28 +11,27 @@ namespace CardGames.Playground.Simulations.Holdem
     public class HoldemSimulation
     {
         private FrenchDeckDealer _dealer;
-        private IList<CommunityCardGamePlayer> _players = new List<CommunityCardGamePlayer>();
+        private IList<HoldemPlayer> _players = new List<HoldemPlayer>();
         private IReadOnlyCollection<Card> _flop = new List<Card>();
         private Card _turn;
         private Card _river;
 
         public HoldemSimulation WithPlayer(string name, IReadOnlyCollection<Card> holeCards)
+            => WithPlayer(new HoldemPlayer(name, holeCards));
+
+        public HoldemSimulation WithPlayer(HoldemPlayer player)
         {
-            if (holeCards.Count > 2)
-            {
-                throw new ArgumentException($"{name} has too many hole cards to play Holdem.");
-            }
-            _players.Add(new CommunityCardGamePlayer { Name = name, GivenHoleCards = holeCards.ToList() });
+            _players.Add(player);
             return this;
         }
 
-        public HoldemSimulation WithFlop(IReadOnlyCollection<Card> holeCards)
+        public HoldemSimulation WithFlop(IReadOnlyCollection<Card> flopCards)
         {
-            if (holeCards.Count != 3)
+            if (flopCards.Count != 3)
             {
                 throw new ArgumentException("A flop needs to have exactly three cards.");
             }
-            _flop = holeCards;
+            _flop = flopCards;
             return this;
         }
 

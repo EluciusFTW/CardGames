@@ -4,7 +4,6 @@ using CardGames.Core.French.Cards;
 
 namespace CardGames.Playground.Simulations.Holdem
 {
-
     public class CommunityCardGamePlayer
     {
         public string Name { get; init; }

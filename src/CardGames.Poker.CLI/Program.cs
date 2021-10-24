@@ -9,17 +9,21 @@ namespace CardGames.Poker.CLI
             var app = new CommandApp();
             app.Configure(configuration => 
             {
-                configuration
-                    .AddCommand<StudSimulation>("stud-hi")
-                    .WithAlias("7cs-hi")
-                    .WithAlias("stud")
-                    .WithDescription("Runs a 7-card Stud hi simulation.");
+                configuration.SetApplicationName("poker-cli");
+                configuration.AddBranch<SimulationSettings>("sim", sim =>
+                {
+                    sim
+                        .AddCommand<StudSimulation>("stud-hi")
+                        .WithAlias("7cs-hi")
+                        .WithAlias("stud")
+                        .WithDescription("Runs a 7-card Stud hi simulation.");
 
-                configuration
-                    .AddCommand<StudSimulation>("holdem")
-                    .WithAlias("nlh")
-                    .WithAlias("lhe")
-                    .WithDescription("Runs a Holdem simulation.");
+                    sim
+                        .AddCommand<HoldemSimulationCommand>("holdem")
+                        .WithAlias("nlh")
+                        .WithAlias("lhe")
+                        .WithDescription("Runs a Holdem simulation.");
+                });
             }); 
             app.Run(args);
         }
