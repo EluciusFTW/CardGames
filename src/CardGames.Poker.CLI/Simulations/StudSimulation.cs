@@ -1,23 +1,20 @@
 ﻿using CardGames.Playground.Simulations.Stud;
 using Spectre.Console.Cli;
-using CardGames.Core.French.Cards.Extensions;
 using CardGames.Core.Extensions;
 using System.Linq;
 using System;
 using Spectre.Console;
-using System.Collections.Generic;
-using CardGames.Core.French.Cards;
 using CardGames.Poker.CLI.Logging;
 
 namespace CardGames.Poker.CLI
 {
-    internal class StudSimulation : Command<StudSimulationSettings>
+    internal class StudSimulation : Command<SimulationSettings>
     {
         private static readonly SpectreLogger Logger = new();
 
-        public override int Execute(CommandContext context, StudSimulationSettings settings)
+        public override int Execute(CommandContext context, SimulationSettings settings)
         {
-            LogApplicationStart();
+            Logger.LogApplicationStart();
             var simulation = new SevenCardStudSimulation();
 
             do
@@ -27,8 +24,11 @@ namespace CardGames.Poker.CLI
             while (AnsiConsole.Confirm("Do you want to add another player?"));
 
             Logger.Paragraph("Other configuration");
-            var deadCards = PromptForCards("Dead cards:");
-            var numberOfHands = AnsiConsole.Ask<int>("How many hands?");
+            var deadCards = Prompt.PromptForCards("Dead cards:");
+
+            var numberOfHands = settings.NumberOfhands == default
+                ? AnsiConsole.Ask<int>("How many hands?")
+                : settings.NumberOfhands;
 
             var results = simulation
                 .WithDeadCards(deadCards)
@@ -44,52 +44,16 @@ namespace CardGames.Poker.CLI
             Logger.Paragraph("Add Player");
 
             var playerName = AnsiConsole.Ask<string>("Player Name: ");
-            var holeCards = PromptForCards("Hole Cards: ");
-            var openCards = PromptForCards("Board Cards: ");
+            var holeCards = Prompt.PromptForCards("Hole Cards: ");
+            var openCards = Prompt.PromptForCards("Board Cards: ");
 
             return new StudPlayer(playerName)
                 .WithHoleCards(holeCards)
                 .WithBoardCards(openCards);
         }
 
-        private static void LogApplicationStart()
-        {
-            Console.OutputEncoding = System.Text.Encoding.Unicode;
-            var title = "Poker-CLI";
-            var contents = new[]
-            {
-                "Stay up to date with newest development and features by",
-                "- following me on Twitter (@EluciusFTW)",
-                "- visiting the GitHub page (https://github.com/EluciusFTW/CardGames)"
-            };
-            Logger.LogTitle(title, contents);
-        }
-
-        public static IReadOnlyCollection<Card> PromptForCards(string message)
-        {
-            var cardsPrompt = new TextPrompt<string>(message)
-                .Validate(input =>
-                {
-                    try
-                    {
-                        input.ToCards();
-                        return ValidationResult.Success();
-                    }
-                    catch
-                    {
-                        return ValidationResult.Error("Can't parse those cards. Please enter cards in the format like '3d 5h Jc'");
-                    }
-                });
-
-            return AnsiConsole
-                .Prompt(cardsPrompt)
-                .ToCards();
-        }
-
         private void PrintResults(StudSimulationResult results)
         {
-            Logger.Paragraph("Results!");
-
             Logger.Headline("Wins");
             PrintWinPercentages(results);
 
@@ -118,9 +82,5 @@ namespace CardGames.Poker.CLI
                         Console.WriteLine($" * {typeDistribution.Type} - {typeDistribution.Occurences} times ({typeDistribution.Frequency:P2})");
                     });
                 });
-    }
-
-    internal class StudSimulationSettings : CommandSettings
-    {
     }
 }

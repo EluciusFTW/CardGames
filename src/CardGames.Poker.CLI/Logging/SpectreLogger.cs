@@ -27,6 +27,19 @@ namespace CardGames.Poker.CLI.Logging
             // Console.OutputEncoding = System.Text.Encoding.UTF8;
         }
 
+        public void LogApplicationStart()
+        {
+            Console.OutputEncoding = System.Text.Encoding.Unicode;
+            var title = "Poker-CLI";
+            var contents = new[]
+            {
+                "Stay up to date with newest development and features by",
+                "- following me on Twitter (@EluciusFTW)",
+                "- visiting the GitHub page (https://github.com/EluciusFTW/CardGames)"
+            };
+            LogTitle(title, contents);
+        }
+
         private void Lined(string line, string style, Justify justify = Justify.Left)
         {
             var rule = new Rule($"[{ParagraphColor}]{line}[/]")
@@ -52,7 +65,6 @@ namespace CardGames.Poker.CLI.Logging
         }
 
         private static void NewLine() => AnsiConsole.WriteLine(string.Empty);
-
         
         internal void LogTitle(string title, IEnumerable<string> lines)
         {
