@@ -9,7 +9,7 @@ namespace CardGames.Poker.Hands.Extensions
         public static string HandStrengthStringRepresentation(this FiveCardHand hand)
             => hand.Type switch
             {
-                HandType.Highcard => hand.Cards.First().Value + "Low",
+                HandType.HighCard => hand.Cards.First().Value + "Low",
                 HandType.OnePair => "One Pair",
                 HandType.TwoPair => "Two Pair",
                 HandType.Trips => "Trips",

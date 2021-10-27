@@ -12,9 +12,9 @@ namespace CardGames.Poker.Hands.DrawHands
             Ranking = HandTypeStrengthRanking.Classic;
         }
 
-        public override HandTypeStrengthRanking Ranking { get; }
+        protected override HandTypeStrengthRanking Ranking { get; }
 
-        public override IEnumerable<IReadOnlyCollection<Card>> PossibleHands()
+        protected override IEnumerable<IReadOnlyCollection<Card>> PossibleHands()
         {
             yield return Cards;
         }

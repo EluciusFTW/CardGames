@@ -10,7 +10,7 @@ namespace CardGames.Poker.Tests.Hands
     {
 
         [Theory]
-        [InlineData("2s 3s 7h 9h Kd", HandType.Highcard)]
+        [InlineData("2s 3s 7h 9h Kd", HandType.HighCard)]
         [InlineData("Td 3s 7h 3h Kd", HandType.OnePair)]
         [InlineData("2s Js Jh Kh Kd", HandType.TwoPair)]
         [InlineData("2s 9s 9h 9c Kd", HandType.Trips)]

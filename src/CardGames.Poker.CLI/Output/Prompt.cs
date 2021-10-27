@@ -1,10 +1,10 @@
-﻿using CardGames.Core.French.Cards;
+﻿using System;
+using System.Collections.Generic;
+using CardGames.Core.French.Cards;
 using CardGames.Core.French.Cards.Extensions;
 using Spectre.Console;
-using System;
-using System.Collections.Generic;
 
-namespace CardGames.Poker.CLI.Logging
+namespace CardGames.Poker.CLI.Output
 {
     internal static class Prompt
     {
@@ -29,9 +29,9 @@ namespace CardGames.Poker.CLI.Logging
                 })
                 .AllowEmpty();
 
-            var input = AnsiConsole.Prompt(cardsPrompt);
-            return !string.IsNullOrEmpty(input)
-                ? input.ToCards()
+            var validatedInput = AnsiConsole.Prompt(cardsPrompt);
+            return !string.IsNullOrEmpty(validatedInput)
+                ? validatedInput.ToCards()
                 : Array.Empty<Card>();
         }
 

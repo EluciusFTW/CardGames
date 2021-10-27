@@ -23,8 +23,8 @@ namespace CardGames.Poker.Hands
             : _type = DetermineType();
 
 
-        public abstract HandTypeStrengthRanking Ranking { get; }
-        public abstract IEnumerable<IReadOnlyCollection<Card>> PossibleHands();
+        protected abstract HandTypeStrengthRanking Ranking { get; }
+        protected abstract IEnumerable<IReadOnlyCollection<Card>> PossibleHands();
 
         public HandBase(IReadOnlyCollection<Card> cards)
         {

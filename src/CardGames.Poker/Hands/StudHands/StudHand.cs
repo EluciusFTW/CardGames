@@ -8,7 +8,7 @@ namespace CardGames.Poker.Hands.StudHands
 {
     public class StudHand : HandBase
     {
-        public override HandTypeStrengthRanking Ranking => HandTypeStrengthRanking.Classic;
+        protected override HandTypeStrengthRanking Ranking => HandTypeStrengthRanking.Classic;
 
         public IReadOnlyCollection<Card> HoleCards { get; }
         public IReadOnlyCollection<Card> OpenCards { get; }
@@ -25,7 +25,7 @@ namespace CardGames.Poker.Hands.StudHands
             DownCards = downCards;
         }
 
-        public override IEnumerable<IReadOnlyCollection<Card>> PossibleHands()
+        protected override IEnumerable<IReadOnlyCollection<Card>> PossibleHands()
             => Cards
                 .SubsetsOfSize(5)
                 .Select(cards => cards.ToList());

@@ -1,12 +1,12 @@
 ﻿using System;
-using Spectre.Console;
 using System.Collections.Generic;
+using System.Linq;
 using CardGames.Core.Extensions;
 using CardGames.Poker.CLI.Artefact;
+using Spectre.Console;
 using Spectre.Console.Rendering;
-using System.Linq;
 
-namespace CardGames.Poker.CLI.Logging
+namespace CardGames.Poker.CLI.Output
 {
     internal class SpectreLogger
     {
@@ -16,7 +16,7 @@ namespace CardGames.Poker.CLI.Logging
         private const string ParagraphColor = "cyan";
         private const string HeadlineColor = "magenta";
 
-        private Color[] BarChartColors = new[]
+        private Color[] _barChartColors = new[]
         {
             new Color(215,155,215),
             new Color(215,155,195),
@@ -52,8 +52,11 @@ namespace CardGames.Poker.CLI.Logging
             AnsiConsole.Write(rule);
         }
 
-        public void Log(string message) => Log(message, MessageStyle);
-        public void Log(string message, string styles) => AnsiConsole.MarkupLine($"[{styles}]{message}[/]");
+        public void Log(string message) 
+            => Log(message, MessageStyle);
+        
+        public void Log(string message, string styles) 
+            => AnsiConsole.MarkupLine($"[{styles}]{message}[/]");
 
         public void Paragraph(string line)
         {
@@ -93,7 +96,7 @@ namespace CardGames.Poker.CLI.Logging
             switch (artefact)
             {
                 case CompositeArtefact composite:
-                    composite.Artefacts.ForEach(artefact => LogArtefact(artefact));
+                    composite.Artefacts.ForEach(LogArtefact);
                     break;
                 case TableArtefact table:
                     AnsiConsole.Write(ToTable(table));
@@ -107,7 +110,7 @@ namespace CardGames.Poker.CLI.Logging
                 case GroupArtefact: break;
                 case CollectionArtefact item:
                     Lined(item.Title, ParagraphColor);
-                    item.Items.ForEach(item => Log(item));
+                    item.Items.ForEach(Log);
                     break;
                 default: throw new NotSupportedException();
             }

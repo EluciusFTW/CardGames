@@ -1,11 +1,11 @@
 ﻿using CardGames.Playground.Simulations.Holdem;
 using CardGames.Core.Extensions;
-using CardGames.Poker.CLI.Logging;
 using Spectre.Console;
 using Spectre.Console.Cli;
 using System;
 using System.Linq;
 using CardGames.Poker.CLI.Evaluation;
+using CardGames.Poker.CLI.Output;
 
 namespace CardGames.Poker.CLI.Simulation
 {
@@ -18,9 +18,9 @@ namespace CardGames.Poker.CLI.Simulation
             Logger.LogApplicationStart();
 
             var simulation = ConfigureSimulation();
-            var numberOfHands = settings.NumberOfhands == default
+            var numberOfHands = settings.NumberOfHands == default
                 ? AnsiConsole.Ask<int>("How many hands?")
-                : settings.NumberOfhands;
+                : settings.NumberOfHands;
 
             PrintResults(simulation.SimulateWithFullDeck(numberOfHands));
             return 0;

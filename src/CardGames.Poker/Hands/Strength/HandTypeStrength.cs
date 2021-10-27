@@ -18,7 +18,7 @@ namespace CardGames.Poker.Hands.Strength
         public static int Classic(HandType type)
             => type switch
             {
-                HandType.Highcard => 0,
+                HandType.HighCard => 0,
                 HandType.OnePair => 1,
                 HandType.TwoPair => 2,
                 HandType.Trips => 3,
@@ -33,7 +33,7 @@ namespace CardGames.Poker.Hands.Strength
         public static int ShortDeck(HandType type)
             => type switch
             {
-                HandType.Highcard => 0,
+                HandType.HighCard => 0,
                 HandType.OnePair => 1,
                 HandType.TwoPair => 2,
                 HandType.Trips => 3,

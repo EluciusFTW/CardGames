@@ -15,7 +15,7 @@ namespace CardGames.Poker.Tests.Hands
         [InlineData("2s 2h", "5d Jh Kh 6h 5h", HandType.Flush)]
         [InlineData("2s 2c", "7h Jh Kh 6h 5h", HandType.Flush)]
         [InlineData("2s 3h", "8d Jh Td Qh 9c", HandType.Straight)]
-        [InlineData("2s 3h", "8d Jh 4d Qh 9c", HandType.Highcard)]
+        [InlineData("2s 3h", "8d Jh 4d Qh 9c", HandType.HighCard)]
         public void Determines_Hand_Type(string holeCards, string boardCards, HandType expectedHandType)
         {
             var hand = new HoldemHand(holeCards.ToCards(), boardCards.ToCards());

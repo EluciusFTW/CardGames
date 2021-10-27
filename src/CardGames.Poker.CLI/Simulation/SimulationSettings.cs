@@ -7,6 +7,6 @@ namespace CardGames.Poker.CLI.Simulation
     {
         [Description("Number of hands to run in the simulation")]
         [CommandOption("-n|--numberOfHands")]
-        public int NumberOfhands { get; set; }
+        public int NumberOfHands { get; set; }
     }
 }

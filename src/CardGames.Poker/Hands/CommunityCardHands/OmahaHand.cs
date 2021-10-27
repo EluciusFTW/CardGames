@@ -16,8 +16,7 @@ namespace CardGames.Poker.Hands.CommunityCardHands
                 throw new ArgumentException("An Omaha hand needs exactly four hole cards");
             }
 
-            var numberOfCommuntiyCards = communityCards.Count();
-            if (numberOfCommuntiyCards < 3 || 5 < numberOfCommuntiyCards)
+            if (communityCards.Count < 3 || 5 < communityCards.Count)
             {
                 throw new ArgumentException("A Omaha board can only have three, four or five cards.");
             }

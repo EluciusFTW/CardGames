@@ -3,7 +3,7 @@
     public enum HandType
     {
         Incomplete,
-        Highcard,
+        HighCard,
         OnePair,
         TwoPair,
         Trips,

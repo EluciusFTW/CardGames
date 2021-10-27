@@ -13,7 +13,7 @@ namespace CardGames.Poker.Hands.CommunityCardHands
 
         public IReadOnlyCollection<Card> HoleCards { get; }
         public IReadOnlyCollection<Card> CommunityCards { get; }
-        public override HandTypeStrengthRanking Ranking { get; }
+        protected override HandTypeStrengthRanking Ranking { get; }
 
         public CommunityCardsHand(
             int leastNumberOfHoleCardsToBeUsed,
@@ -32,7 +32,7 @@ namespace CardGames.Poker.Hands.CommunityCardHands
             Ranking = ranking;
         }
 
-        public override IEnumerable<IReadOnlyCollection<Card>> PossibleHands()
+        protected override IEnumerable<IReadOnlyCollection<Card>> PossibleHands()
         {
             var nrOfCombos = GreatestNumberOfHoleCardsToBeUsed - LeastNumberOfHoleCardsToBeUsed + 1;
             return Enumerable

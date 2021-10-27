@@ -3,9 +3,9 @@ using Spectre.Console.Cli;
 
 namespace CardGames.Poker.CLI
 {
-    class Program
+    internal static class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             var app = new CommandApp();
             app.Configure(configuration => 

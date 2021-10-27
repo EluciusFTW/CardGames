@@ -45,7 +45,7 @@ namespace CardGames.Poker.Hands.HandTypes
                     ? HandType.Straight
                     : isFlush
                         ? HandType.Flush
-                        : HandType.Highcard;
+                        : HandType.HighCard;
         }
 
         private static bool IsFlush(IReadOnlyCollection<Card> cards) 
