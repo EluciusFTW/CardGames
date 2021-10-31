@@ -20,7 +20,13 @@ namespace CardGames.Poker.CLI.Simulation
                 ? AnsiConsole.Ask<int>("How many hands?")
                 : settings.NumberOfHands;
 
-            PrintResults(simulation.Simulate(numberOfHands));
+            var result = AnsiConsole.Status()
+                .Spinner(Spinner.Known.Arrow3)
+                .Start("Simulating ... ", ctx => simulation.Simulate(numberOfHands));
+
+            AnsiConsole.Status()
+                .Spinner(Spinner.Known.Arrow3)
+                .Start("Evaluating ... ", ctx => PrintResults(result));
 
             return 0;
         }
@@ -35,7 +41,7 @@ namespace CardGames.Poker.CLI.Simulation
             while (AnsiConsole.Confirm("Do you want to add another player?"));
 
             Logger.Paragraph("Other configuration");
-            var deadCards = Prompt.PromptForCards("Dead cards:");
+            var deadCards = Prompt.PromptForRangeOfCards("Dead cards:", 0, 52);
             simulation.WithDeadCards(deadCards);
             return simulation;
         }
@@ -45,20 +51,20 @@ namespace CardGames.Poker.CLI.Simulation
             Logger.Paragraph("Add Player");
 
             var playerName = AnsiConsole.Ask<string>("Player Name: ");
-            var holeCards = Prompt.PromptForCards("Hole Cards: ");
-            var openCards = Prompt.PromptForCards("Board Cards: ");
+            var holeCards = Prompt.PromptForRangeOfCards("Hole Cards: ", 0, 3);
+            var openCards = Prompt.PromptForRangeOfCards("Board Cards: ", 0, 4);
 
             return new StudPlayer(playerName)
                 .WithHoleCards(holeCards)
                 .WithBoardCards(openCards);
         }
 
-        private static void PrintResults(StudSimulationResult results)
+        private static void PrintResults(StudSimulationResult result)
             => new[]
-            {
-                EvaluationArtefact.Equity(results.Hands),
-                EvaluationArtefact.MadeHandDistribution(results.Hands),
-            }
-            .ForEach(artefact => Logger.LogArtefact(artefact));
+                {
+                    EvaluationArtefact.Equity(result.Hands),
+                    EvaluationArtefact.MadeHandDistribution(result.Hands),
+                }
+                .ForEach(artefact => Logger.LogArtefact(artefact));
     }
 }

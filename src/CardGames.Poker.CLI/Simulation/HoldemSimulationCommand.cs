@@ -1,11 +1,10 @@
-﻿using CardGames.Playground.Simulations.Holdem;
-using CardGames.Core.Extensions;
-using Spectre.Console;
-using Spectre.Console.Cli;
-using System;
-using System.Linq;
+﻿using CardGames.Core.Extensions;
+using CardGames.Playground.Simulations.Holdem;
 using CardGames.Poker.CLI.Evaluation;
 using CardGames.Poker.CLI.Output;
+using Spectre.Console;
+using Spectre.Console.Cli;
+using System.Linq;
 
 namespace CardGames.Poker.CLI.Simulation
 {
@@ -22,7 +21,14 @@ namespace CardGames.Poker.CLI.Simulation
                 ? AnsiConsole.Ask<int>("How many hands?")
                 : settings.NumberOfHands;
 
-            PrintResults(simulation.SimulateWithFullDeck(numberOfHands));
+            var result = AnsiConsole.Status()
+                .Spinner(Spinner.Known.Arrow3)
+                .Start("Simulating ... ", ctx => simulation.SimulateWithFullDeck(numberOfHands));
+
+            AnsiConsole.Status()
+                .Spinner(Spinner.Known.Arrow3)
+                .Start("Evaluating ... ", ctx => PrintResults(result));
+
             return 0;
         }
 
@@ -35,7 +41,8 @@ namespace CardGames.Poker.CLI.Simulation
             }
             while (AnsiConsole.Confirm("Do you want to add another player?"));
 
-            var flop = Prompt.PromptForCards("Flop: ");
+            Logger.Paragraph("Add Details");
+            var flop = Prompt.PromptForCards("Flop: ", 3, false);
             if (flop.Any())
             {
                 simulation.WithFlop(flop);
@@ -54,17 +61,17 @@ namespace CardGames.Poker.CLI.Simulation
             Logger.Paragraph("Add Player");
 
             var name = AnsiConsole.Ask<string>("Player Name: ");
-            var holeCards = Prompt.PromptForCards("Hole Cards: ");
+            var holeCards = Prompt.PromptForRangeOfCards("Hole Cards: ", 0, 2);
 
             return new HoldemPlayer(name, holeCards);
         }
 
-        private static void PrintResults(HoldemSimulationResult results) 
+        private static void PrintResults(HoldemSimulationResult result)
             => new[]
-            {
-                EvaluationArtefact.Equity(results.Hands),
-                EvaluationArtefact.MadeHandDistribution(results.Hands),
-            }
-            .ForEach(artefact => Logger.LogArtefact(artefact));
+                {
+                    EvaluationArtefact.Equity(result.Hands),
+                    EvaluationArtefact.MadeHandDistribution(result.Hands),
+                }
+                .ForEach(artefact => Logger.LogArtefact(artefact));
     }
 }

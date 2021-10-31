@@ -43,20 +43,11 @@ namespace CardGames.Poker.CLI.Output
             LogTitle(title, contents);
         }
 
-        private void Lined(string line, string style, Justify justify = Justify.Left)
-        {
-            var rule = new Rule($"[{ParagraphColor}]{line}[/]")
-            {
-                Alignment = justify
-            };
-            AnsiConsole.Write(rule);
-        }
-
         public void Log(string message) 
             => Log(message, MessageStyle);
         
-        public void Log(string message, string styles) 
-            => AnsiConsole.MarkupLine($"[{styles}]{message}[/]");
+        public void Log(string message, string style) 
+            => AnsiConsole.MarkupLine($"[{style}]{message}[/]");
 
         public void Paragraph(string line)
         {
@@ -69,29 +60,10 @@ namespace CardGames.Poker.CLI.Output
             NewLine();
             Lined(line, HeadlineColor);
         }
-
-        private static void NewLine() => AnsiConsole.WriteLine(string.Empty);
-        
-        internal void LogTitle(string title, IEnumerable<string> lines)
-        {
-            AnsiConsole.Write(new Rule());
-            AnsiConsole.Write(new Rule());
-            AnsiConsole.Write(new Rule());
-            AnsiConsole.Write(
-                new FigletText(title)
-                    .LeftAligned()
-                    .Color(Color.Yellow));
-            AnsiConsole.Write(new Rule());
-            AnsiConsole.Write(new Rule());
-            lines.ForEach(line => Log(line, "yellow"));
-            AnsiConsole.Write(new Rule());
-            AnsiConsole.Write(new Rule());
-        }
-
-        internal void LogArtefacts(IEnumerable<IReportArtefact> artefacts)
+        public void LogArtefacts(IEnumerable<IReportArtefact> artefacts)
             => artefacts.ForEach(LogArtefact);
 
-        internal void LogArtefact(IReportArtefact artefact)
+        public void LogArtefact(IReportArtefact artefact)
         {
             switch (artefact)
             {
@@ -116,6 +88,28 @@ namespace CardGames.Poker.CLI.Output
             }
         }
 
+        private void Lined(string line, string style, Justify justify = Justify.Left)
+        {
+            var rule = new Rule($"[{style}]{line}[/]")
+            {
+                Alignment = justify
+            };
+            AnsiConsole.Write(rule);
+        }
+
+        private static void NewLine() => AnsiConsole.WriteLine(string.Empty);
+        
+        private void LogTitle(string title, IEnumerable<string> lines)
+        {
+            AnsiConsole.Write(
+                new FigletText(title)
+                    .LeftAligned()
+                    .Color(Color.Green));
+            AnsiConsole.Write(new Rule());
+            lines.ForEach(line => Log(line, "green"));
+            AnsiConsole.Write(new Rule());
+        }
+        
         private void LogSimple(SimpleArtefact item)
         {
             switch (item.Level)
@@ -144,15 +138,15 @@ namespace CardGames.Poker.CLI.Output
             }
         }
 
-        //private IRenderable ToBarChart(ValueCollectionArtefact list)
-        //{
-        //    var bar = new BarChart()
-        //        .Width(80)
-        //        .Label($"[{MessageStyle}]{list.Title}[/]");
-        //    list.Values
-        //        .ForEach((line, index) => bar.AddItem(line.Key, line.Value, BarChartColors[index % BarChartColors.Length]));
-        //    return bar;
-        //}
+        private IRenderable ToBarChart(ValueCollectionArtefact list)
+        {
+            var bar = new BarChart()
+                .Width(80)
+                .Label($"[{MessageStyle}]{list.Title}[/]");
+            list.Values
+                .ForEach((line, index) => bar.AddItem(line.Key, line.Value, _barChartColors[index % _barChartColors.Length]));
+            return bar;
+        }
 
         private static IRenderable ToTable(TableArtefact table)
         {
