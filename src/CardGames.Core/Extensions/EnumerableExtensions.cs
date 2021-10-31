@@ -14,6 +14,15 @@ namespace CardGames.Core.Extensions
             }
         }
 
+        public static void ForEach<T>(this IEnumerable<T> source, Action<T, int> action)
+            => source
+                .Indexed()
+                .ForEach(element => action(element.Item, element.Index));
+
+        private static IEnumerable<(T Item, int Index)> Indexed<T>(this IEnumerable<T> source)
+            => source
+                .Select((item, index) => (item, index));
+
         public static IEnumerable<IEnumerable<T>> Subsets<T>(this IEnumerable<T> source)
             => source != null
                  ? SubsetsInternal(source)
