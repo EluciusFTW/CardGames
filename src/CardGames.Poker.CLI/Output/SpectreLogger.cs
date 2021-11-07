@@ -28,17 +28,17 @@ namespace CardGames.Poker.CLI.Output
         public SpectreLogger()
         {
             // Console.OutputEncoding = System.Text.Encoding.UTF8;
+            Console.OutputEncoding = System.Text.Encoding.Unicode;
         }
 
         public void LogApplicationStart()
         {
-            Console.OutputEncoding = System.Text.Encoding.Unicode;
             var title = "Poker-CLI";
             var contents = new[]
             {
                 "Stay up to date with newest development and features by",
-                "- following me on Twitter (@EluciusFTW)",
-                "- visiting the GitHub page (https://github.com/EluciusFTW/CardGames)"
+                "- visiting the GitHub page (https://github.com/EluciusFTW/CardGames)",
+                "- following me on Twitter @EluciusFTW",
             };
             LogTitle(title, contents);
         }
