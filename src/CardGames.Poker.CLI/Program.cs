@@ -24,6 +24,11 @@ namespace CardGames.Poker.CLI
                         .WithAlias("nlh")
                         .WithAlias("lhe")
                         .WithDescription("Runs a Holdem simulation.");
+
+                    sim
+                        .AddCommand<OmahaSimulationCommand>("omaha")
+                        .WithAlias("plo")
+                        .WithDescription("Runs an Omaha simulation.");
                 });
             }); 
             app.Run(args);

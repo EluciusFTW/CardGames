@@ -2,7 +2,7 @@
   "profiles": {
     "CardGames.Poker.CLI": {
       "commandName": "Project",
-      "commandLineArgs": "sim holdem"
+      "commandLineArgs": "sim omaha"
     }
   }
 }
