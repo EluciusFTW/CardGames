@@ -1,9 +1,8 @@
 ﻿using BenchmarkDotNet.Attributes;
-using CardGames.Core.French.Cards.Extensions;
-using CardGames.Playground.Simulations.Holdem;
 using CardGames.Poker.Simulations.Holdem;
+using CardGames.Core.French.Cards.Extensions;
 
-namespace CardGames.Playground.Runner
+namespace CardGames.Poker.Benchmarks
 {
     [MemoryDiagnoser]
     public class HoldemSimulationBenchmarks

@@ -1,14 +1,12 @@
-﻿using CardGames.Core.French.Cards.Extensions;
-using CardGames.Core.Extensions;
-using System;
+﻿using System;
 using System.Linq;
-using CardGames.Playground.Simulations.Holdem;
-using CardGames.Playground.Simulations.Stud;
 using BenchmarkDotNet.Running;
 using CardGames.Poker.Simulations.Holdem;
+using CardGames.Core.Extensions;
+using CardGames.Core.French.Cards.Extensions;
 using CardGames.Poker.Simulations.Stud;
 
-namespace CardGames.Playground.Runner
+namespace CardGames.Poker.Benchmarks
 {
     public class Program
     {
