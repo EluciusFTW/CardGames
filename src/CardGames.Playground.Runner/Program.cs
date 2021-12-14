@@ -4,6 +4,9 @@ using System;
 using System.Linq;
 using CardGames.Playground.Simulations.Holdem;
 using CardGames.Playground.Simulations.Stud;
+using BenchmarkDotNet.Running;
+using CardGames.Poker.Simulations.Holdem;
+using CardGames.Poker.Simulations.Stud;
 
 namespace CardGames.Playground.Runner
 {
@@ -11,12 +14,15 @@ namespace CardGames.Playground.Runner
     {
         static void Main()
         {
-            var results = RunStudSimulation(10000);
+            //var results = RunStudSimulation(10000);
 
-            PrintWinPercentages(results);
-            PrintHandDistributions(results);
+            //PrintWinPercentages(results);
+            //PrintHandDistributions(results);
 
+            BenchmarkRunner.Run<HoldemSimulationBenchmarks>();
             Console.ReadKey();
+
+            // Console.ReadKey();
         }
 
         private static HoldemSimulationResult RunHoldemSimulation(int nrOfHands)
