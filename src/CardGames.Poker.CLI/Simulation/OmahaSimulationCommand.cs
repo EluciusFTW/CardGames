@@ -1,5 +1,4 @@
-﻿using CardGames.Playground.Simulations.Omaha;
-using CardGames.Core.Extensions;
+﻿using CardGames.Core.Extensions;
 using CardGames.Poker.CLI.Evaluation;
 using CardGames.Poker.CLI.Output;
 using CardGames.Poker.Hands.CommunityCardHands;
@@ -7,6 +6,7 @@ using Spectre.Console;
 using Spectre.Console.Cli;
 using System.Collections.Generic;
 using System.Linq;
+using CardGames.Poker.Simulations.Omaha;
 
 namespace CardGames.Poker.CLI.Simulation
 {

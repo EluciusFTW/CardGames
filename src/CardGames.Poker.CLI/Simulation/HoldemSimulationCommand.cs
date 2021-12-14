@@ -1,7 +1,7 @@
 ﻿using CardGames.Core.Extensions;
-using CardGames.Playground.Simulations.Holdem;
 using CardGames.Poker.CLI.Evaluation;
 using CardGames.Poker.CLI.Output;
+using CardGames.Poker.Simulations.Holdem;
 using Spectre.Console;
 using Spectre.Console.Cli;
 using System.Linq;

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31205.134
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.31911.260
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{E9CFD145-721B-4E34-A8E8-34BE03F79FED}"
 EndProject
@@ -13,15 +13,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CardGames.Core.French", "Ca
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CardGames.Core.French.Tests", "Tests\CardGames.Core.French.Tests\CardGames.Core.French.Tests.csproj", "{8F0154B5-DF55-4F0F-8CAE-C51F4737942E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CardGames.Playground", "CardGames.Playground\CardGames.Playground.csproj", "{994324AB-2D4B-42DD-922F-3025FB632B25}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CardGames.Playground.Runner", "CardGames.Playground.Runner\CardGames.Playground.Runner.csproj", "{7C5A3944-4E44-47CD-BB0B-D7187D656A10}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CardGames.Poker.Benchmarks", "CardGames.Playground.Runner\CardGames.Poker.Benchmarks.csproj", "{7C5A3944-4E44-47CD-BB0B-D7187D656A10}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CardGames.Poker", "CardGames.Poker\CardGames.Poker.csproj", "{8F8310CA-22FE-46CF-807A-3791D1D8A15B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CardGames.Poker.Tests", "Tests\CardGames.Poker.Tests\CardGames.Poker.Tests.csproj", "{5E8EEC44-FA73-4A66-9433-64D5E3468C9D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CardGames.Poker.CLI", "CardGames.Poker.CLI\CardGames.Poker.CLI.csproj", "{D9CC9201-2928-48C9-ACBC-FB3D5D752796}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CardGames.Poker.CLI", "CardGames.Poker.CLI\CardGames.Poker.CLI.csproj", "{D9CC9201-2928-48C9-ACBC-FB3D5D752796}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,10 +43,6 @@ Global
 		{8F0154B5-DF55-4F0F-8CAE-C51F4737942E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F0154B5-DF55-4F0F-8CAE-C51F4737942E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F0154B5-DF55-4F0F-8CAE-C51F4737942E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{994324AB-2D4B-42DD-922F-3025FB632B25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{994324AB-2D4B-42DD-922F-3025FB632B25}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{994324AB-2D4B-42DD-922F-3025FB632B25}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{994324AB-2D4B-42DD-922F-3025FB632B25}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7C5A3944-4E44-47CD-BB0B-D7187D656A10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7C5A3944-4E44-47CD-BB0B-D7187D656A10}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C5A3944-4E44-47CD-BB0B-D7187D656A10}.Release|Any CPU.ActiveCfg = Release|Any CPU

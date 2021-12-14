@@ -1,9 +1,9 @@
-﻿using CardGames.Playground.Simulations.Stud;
-using Spectre.Console.Cli;
+﻿using Spectre.Console.Cli;
 using CardGames.Core.Extensions;
 using Spectre.Console;
 using CardGames.Poker.CLI.Evaluation;
 using CardGames.Poker.CLI.Output;
+using CardGames.Poker.Simulations.Stud;
 
 namespace CardGames.Poker.CLI.Simulation
 {
