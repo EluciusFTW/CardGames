@@ -16,15 +16,17 @@ It contains the basic entities needed for such a game: _Cards_ (duh!), _Card dec
 <sup>1</sup> Actually, up to abuse of language, any game of chance that contains a finite set of possibilities can be modelled using this package, e.g., we can interpret a die as a deck of six cards called: 1,2,3,4,5,6. We can implement a `DiceDealer` who 'shuffles the deck' (i.e. returns the dealt/rolled card/value back to the deck immediately) after dealing a card (rolling the die).
 
 ## Card
-The most elemental part of a card game is the card. There is actually nothing universal that describes a card, except for it being detemined by it's content. So in all later entities the card will be represented by a generic type `TCard`, with the constraint that it is a **struct**. 
+The most elemental part of a card game is the card. There is actually nothing universal that describes a card, except for it being detemined by it's content. So in all later entities the card will be represented by a generic type `TCard`, with the constraint that it is a **class**. 
+
+> *NOTE: Until recently, `TCard` was generically constrained to be a **struct**. However, I have decided to switch over to **class**, as in all my use-cases, the gain from passing-by-reference as default (in terms of performance) was higher than the benefit of creation on the stack, as they are often passed around into other methods, collections, etc.  Another reason is that the memory allocation needed to create an instance depends heavily on implementation, and might be big, depending on your card deck and game (think: Cards in a deck builder game with lot's of properties).
 
 ## Deck
 The collection of all different cards, in a bunch, is called a deck.
 
-The package provides a generic interface for a deck which holds cards of the generic struct type `TCard`
+The package provides a generic interface for a deck which holds cards of the generic type `TCard`
 ```cs
 // Interface definition for a generic deck
-public interface IDeck<TCard> where TCard : struct
+public interface IDeck<TCard> where TCard : class
 {
     int NumberOfCardsLeft();
     TCard GetFromRemaining(int index);
@@ -36,7 +38,7 @@ public interface IDeck<TCard> where TCard : struct
 ## Dealer
 The dealer is the entity handling the deck. Instead of only providing an interface like for the deck, the library provides a generic implementation of a dealer, which can be specified (i.e., derived from) in order to add more specific functionality:
 ```cs
-public class Dealer<TCard> where TCard : struct
+public class Dealer<TCard> where TCard : class
 {
     public Dealer(IDeck<TCard> deck) {...}
     public Dealer(IDeck<TCard> deck, IRandomNumberGenerator numberGenerator) {...}

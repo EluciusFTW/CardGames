@@ -3,7 +3,7 @@ using System;
 
 namespace CardGames.Core.French.Cards
 {
-    public readonly struct Card : IEquatable<Card>
+    public class Card : IEquatable<Card>
     {
         public Suit Suit { get; }
 
@@ -27,18 +27,16 @@ namespace CardGames.Core.French.Cards
         public override string ToString() 
             => this.ToShortString();
 
-        // The rest of the struct is solemnly for performance. Although a struct already comes with an implementation of 
-        // equality, it is based on a generic implementation using reflection. To acheive (much) better performance, it is 
-        // recommended to overwrite to implementation with a specific one, and that results in hte boilderpalte below. See, e.g.,
-        // https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/statements-expressions-operators/how-to-define-value-equality-for-a-type
         public override bool Equals(object obj)
             => obj is Card other && Equals(other);
 
-        public bool Equals(Card other)
-            => Suit == other.Suit && Symbol == other.Symbol;
+        public bool Equals(Card other) 
+            => other is not null 
+                && Suit == other.Suit 
+                && Symbol == other.Symbol;
 
-        public static bool operator ==(Card left, Card right) 
-            => left.Equals(right);
+        public static bool operator ==(Card left, Card right)
+            => left?.Equals(right) ?? false;
 
         public static bool operator !=(Card left, Card right) 
             => !(left == right);

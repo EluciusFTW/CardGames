@@ -1,7 +1,7 @@
 ﻿namespace CardGames.Core.Deck
 {
     public interface IDeck<TCardKind> 
-        where TCardKind : struct
+        where TCardKind : class
     {
         int NumberOfCardsLeft();
         TCardKind GetFromRemaining(int index);

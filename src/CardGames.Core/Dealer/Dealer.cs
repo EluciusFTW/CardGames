@@ -6,7 +6,7 @@ using CardGames.Core.Random;
 
 namespace CardGames.Core.Dealer
 {
-    public class Dealer<TCardKind> where TCardKind : struct
+    public class Dealer<TCardKind> where TCardKind : class
     {
         protected IDeck<TCardKind> Deck { get; }
         protected IRandomNumberGenerator NumberGenerator { get; }
