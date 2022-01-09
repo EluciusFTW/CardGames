@@ -6,10 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="EluciusFTW.CardGames.Core" Version="1.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\CardGames.Core.French\CardGames.Core.French.csproj" />
+    <PackageReference Include="EluciusFTW.CardGames.Core.French" Version="1.0.0" />
   </ItemGroup>
 
 </Project>
