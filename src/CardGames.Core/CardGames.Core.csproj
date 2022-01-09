@@ -1,8 +1,23 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-	  <LangVersion>latest</LangVersion>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<LangVersion>latest</LangVersion>
+		<Version>1.0.0</Version>
+		<Authors>Guy Buss</Authors>
+		<Copyright>Copyright (c) Guy Buss 2022</Copyright>
+
+		<Title>Card game abstractions for .NET</Title>
+		<Description>Domain models and abstractions for cards, decks, and dealers as a basis for implementing card games in .NET</Description>
+		<PackageTags>Card Cards CardDeck Dealer CardGames DDD Abstraction</PackageTags>
+		<PackageReleaseNotes> Initial stable package release. </PackageReleaseNotes>
+		<PackageId>EluciusFTW.CardGames.Core</PackageId>
+		<PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
+		<PackageProjectUrl>https://github.com/EluciusFTW/CardGames</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/EluciusFTW/CardGames</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+	</PropertyGroup>
 
 </Project>
