@@ -54,7 +54,7 @@ namespace CardGames.Core.French.Dealers
         {
             if (!cards.Any())
             {
-                card = default;
+                card = null;
                 return false;
             }
 

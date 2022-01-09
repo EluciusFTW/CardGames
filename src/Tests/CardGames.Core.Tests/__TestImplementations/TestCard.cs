@@ -1,6 +1,6 @@
 ﻿namespace CardGames.Core.Tests.__TestImplementations
 {
-    internal readonly struct TestCard
+    internal class TestCard
     {
         public TestCard(int propertyValue)
         {

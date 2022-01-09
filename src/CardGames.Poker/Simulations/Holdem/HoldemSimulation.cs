@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CardGames.Core.Extensions;
 using CardGames.Core.French.Cards;
 using CardGames.Core.French.Dealers;
-using CardGames.Core.Extensions;
 using CardGames.Poker.Hands.CommunityCardHands;
 
 namespace CardGames.Poker.Simulations.Holdem

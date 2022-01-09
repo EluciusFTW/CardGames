@@ -1,12 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <LangVersion>latest</LangVersion>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<LangVersion>latest</LangVersion>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\CardGames.Core\CardGames.Core.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+	  <PackageReference Include="EluciusFTW.CardGames.Core" Version="1.0.0" />
+	</ItemGroup>
 
 </Project>
