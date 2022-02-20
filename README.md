@@ -8,6 +8,9 @@ I assume this project will be slow, because of several reasons. First of all, it
 I value code quality and readability a lot as well. I'll spend lots of time rewriting algorithmically simple things if I feel I can express them even cleaner. And finally, I also am a big believer in unit tests, especially when writing libraries. You put yourself in the role of a client and try to interact with the entities the library provides. They not only provide confidence that everything works the way it should, they make you really think about the design an usability of the entities the library provides. 
 
 # CardGames.Core
+Available at [Nuget: EluciusFTW.CardGames.Core](https://www.nuget.org/packages/EluciusFTW.CardGames.Core/)
+
+## Overview
 There are thousands of different [card games](https://en.wikipedia.org/wiki/Card_game), with many different cards and collections of cards, with different rules and purposes. 
 
 In this package, we tried to follow a domain-driven approach to card games in general<sup>1</sup>. 
@@ -18,7 +21,7 @@ It contains the basic entities needed for such a game: _Cards_ (duh!), _Card dec
 ## Card
 The most elemental part of a card game is the card. There is actually nothing universal that describes a card, except for it being detemined by it's content. So in all later entities the card will be represented by a generic type `TCard`, with the constraint that it is a **class**. 
 
-> *NOTE: Until recently, `TCard` was generically constrained to be a **struct**. However, I have decided to switch over to **class**, as in all my use-cases, the gain from passing-by-reference as default (in terms of performance) was higher than the benefit of creation on the stack, as they are often passed around into other methods, collections, etc.  Another reason is that the memory allocation needed to create an instance depends heavily on implementation, and might be big, depending on your card deck and game (think: Cards in a deck builder game with lot's of properties).
+> NOTE: Until recently, `TCard` was generically constrained to be a **struct**. However, I have decided to switch over to **class**, as in all my use-cases, the gain from passing-by-reference as default (in terms of performance) was higher than the benefit of creation on the stack, as they are often passed around into other methods, collections, etc.  Another reason is that the memory allocation needed to create an instance depends heavily on implementation, and might be big, depending on your card deck and game (think: Cards in a deck builder game with lot's of properties).
 
 ## Deck
 The collection of all different cards, in a bunch, is called a deck.
@@ -58,6 +61,9 @@ public interface IRandomNumberGenerator
 and a standand implementation (which is just a wrapper holding an instance of `System.Random`).
 
 # CardGames.Core.French
+Available at [Nuget: EluciusFTW.CardGames.Core.French](https://www.nuget.org/packages/EluciusFTW.CardGames.Core.French/)
+
+## Overview
 This library is an implementation of the core library for the arguably the most well-known playing card: the [french-suited playing card](https://en.wikipedia.org/wiki/French-suited_playing_cards).
 
 ## French-suited playing cards
@@ -198,10 +204,6 @@ Here is a simple printout of the above Holdem simulation:
 
 Here is a simple printout of the above Stud simulation:
 ![Screenshot of Holdem Simulation](./sample/holdem-simulation-screenshot.png)
-
-
-### Disclaimer
-:hand: Although this description uses the word _package_ multiple times, it is not yet published as a nuget package, as it is still under development.
 
 ## Feedback and Contributing
 All feedback welcome!
