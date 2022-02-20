@@ -8,7 +8,7 @@ namespace CardGames.Poker.Benchmarks
     public class HoldemSimulationBenchmarks
     {
         [Benchmark]
-        public HoldemSimulationResult HoldemHeadsUp100Hands()
+        public static HoldemSimulationResult HoldemHeadsUp100Hands()
             => new HoldemSimulation()
                 .WithPlayer("James", "8s 6d".ToCards())
                 .WithPlayer("Jimmy", "Ad Kd".ToCards())
@@ -16,7 +16,7 @@ namespace CardGames.Poker.Benchmarks
                 .SimulateWithFullDeck(100);
 
         [Benchmark]
-        public HoldemSimulationResult HoldemFiveHanded100Hands()
+        public static HoldemSimulationResult HoldemFiveHanded100Hands()
             => new HoldemSimulation()
                 .WithPlayer("Jill", "Qh Td".ToCards())
                 .WithPlayer("Jonas", "8s 9d".ToCards())

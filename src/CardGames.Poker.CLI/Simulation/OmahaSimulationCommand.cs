@@ -7,6 +7,7 @@ using Spectre.Console.Cli;
 using System.Collections.Generic;
 using System.Linq;
 using CardGames.Poker.Simulations.Omaha;
+using CardGames.Core.French.Cards;
 
 namespace CardGames.Poker.CLI.Simulation
 {
@@ -14,32 +15,60 @@ namespace CardGames.Poker.CLI.Simulation
     {
         private static readonly SpectreLogger Logger = new();
 
+        private int _nrOfHands;
+        private IList<OmahaPlayer> _players = new List<OmahaPlayer>();
+        private IReadOnlyCollection<Card> _flop = new List<Card>();
+        private Card _turn = default;
+
         public override int Execute(CommandContext context, SimulationSettings settings)
         {
             Logger.LogApplicationStart();
-
-            var simulation = ConfigureSimulation();
-            var numberOfHands = settings.NumberOfHands == default
-                ? AnsiConsole.Ask<int>("How many hands?")
-                : settings.NumberOfHands;
-
-            var results = AnsiConsole.Status()
-                .Spinner(Spinner.Known.Arrow3)
-                .Start("Simulating ... ", ctx => simulation.SimulateWithFullDeck(numberOfHands).ToList());
-
-            AnsiConsole.Status()
-                .Spinner(Spinner.Known.Arrow3)
-                .Start("Evaluating ... ", ctx => PrintResults(results));
+            do
+            {
+                CollectData(settings);
+                var simulation = CreateSimulation();
+                var results = RunSimulation(simulation);
+                EvaluateResults(results);
+            } while (AnsiConsole.Confirm("Do you want to run another simulation?"));
 
             return 0;
         }
 
-        private static OmahaSimulation ConfigureSimulation()
+        private OmahaSimulation CreateSimulation()
         {
-            var simulation = new OmahaSimulation();
+            var simulation = new OmahaSimulation()
+                .WithPlayers(_players);
+
+            if (_flop.Any())
+            {
+                simulation.WithFlop(_flop);
+            }
+
+            if (_turn != default)
+            {
+                simulation.WithTurn(_turn);
+            }
+            return simulation;
+        }
+
+        private void EvaluateResults(List<IDictionary<string, OmahaHand>> results)
+            => AnsiConsole
+                .Status()
+                .Spinner(Spinner.Known.Arrow3)
+                .Start("Evaluating ... ", _ => PrintResults(results));
+
+
+        private List<IDictionary<string, OmahaHand>> RunSimulation(OmahaSimulation simulation)
+         => AnsiConsole
+                .Status()
+                .Spinner(Spinner.Known.Arrow3)
+                .Start("Simulating ... ", _ => simulation.SimulateWithFullDeck(_nrOfHands).ToList());
+
+        private void CollectData(SimulationSettings settings)
+        {
             do
             {
-                simulation.WithPlayer(GetPlayer());
+                _players.Add(GetPlayer());
             }
             while (AnsiConsole.Confirm("Do you want to add another player?"));
 
@@ -47,15 +76,13 @@ namespace CardGames.Poker.CLI.Simulation
             var flop = Prompt.PromptForCards("Flop: ", 3, false);
             if (flop.Any())
             {
-                simulation.WithFlop(flop);
-                var turn = Prompt.PromptForCard("Turn: ");
-                if (turn != default)
-                {
-                    simulation.WithTurn(turn);
-                }
+                _flop = flop;
+                _turn = Prompt.PromptForCard("Turn: ");
             }
-
-            return simulation;
+         
+            _nrOfHands = settings.NumberOfHands == default
+                ? AnsiConsole.Ask<int>("How many hands?")
+                : settings.NumberOfHands;
         }
 
         private static OmahaPlayer GetPlayer()
@@ -77,4 +104,3 @@ namespace CardGames.Poker.CLI.Simulation
                 .ForEach(artefact => Logger.LogArtefact(artefact));
     }
 }
-

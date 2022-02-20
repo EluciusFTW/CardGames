@@ -25,6 +25,12 @@ namespace CardGames.Playground.Simulations.Omaha
             return this;
         }
 
+        public OmahaSimulation WithPlayers(IEnumerable<OmahaPlayer> players)
+        {
+            players.ForEach(player => _players.Add(player));
+            return this;
+        }
+
         public OmahaSimulation WithFlop(IReadOnlyCollection<Card> flopCards)
         {
             if (flopCards.Count != 3)

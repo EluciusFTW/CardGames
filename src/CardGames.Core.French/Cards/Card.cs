@@ -3,7 +3,7 @@ using System;
 
 namespace CardGames.Core.French.Cards
 {
-    public class Card : IEquatable<Card>
+    public sealed class Card : IEquatable<Card>
     {
         public Suit Suit { get; }
 
