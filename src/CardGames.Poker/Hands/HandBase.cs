@@ -43,7 +43,7 @@ namespace CardGames.Poker.Hands
             return handsAndTypes
                 .Where(pair => pair.type == Type)
                 .Select(pair => pair.hand)
-                .Select(hand => HandStrength.Classic(hand, Type))
+                .Select(hand => HandStrength.Calculate(hand, Type, Ranking))
                 .Max();
         }
 

@@ -22,12 +22,9 @@ namespace CardGames.Poker.Hands.Strength
                 .Select(type => new { type, Value = HandTypeStrength.ByRanking(ranking, type) })
                 .OrderByDescending(pair => pair.Value)
                 .First().type;
-
-        public static long Classic(IReadOnlyCollection<Card> cards, HandType handType)
-            => Calculate(cards, HandTypeStrength.Classic(handType));
-
-        public static long ShortDeck(IReadOnlyCollection<Card> cards, HandType handType)
-            => Calculate(cards, HandTypeStrength.ShortDeck(handType));
+        
+        public static long Calculate(IReadOnlyCollection<Card> cards, HandType handType, HandTypeStrengthRanking ranking)
+            => Calculate(cards, HandTypeStrength.ByRanking(ranking, handType));
 
         public static long Calculate(IReadOnlyCollection<Card> cards, HandType handType, Func<HandType, int> handTypeOrderMap)
             => Calculate(cards, handTypeOrderMap(handType));
