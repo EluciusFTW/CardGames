@@ -51,15 +51,14 @@ namespace CardGames.Poker.CLI.Simulation
             return simulation;
         }
 
-        private void EvaluateResults(List<IDictionary<string, OmahaHand>> results)
+        private static void EvaluateResults(List<IDictionary<string, OmahaHand>> results)
             => AnsiConsole
                 .Status()
                 .Spinner(Spinner.Known.Arrow3)
                 .Start("Evaluating ... ", _ => PrintResults(results));
 
-
         private List<IDictionary<string, OmahaHand>> RunSimulation(OmahaSimulation simulation)
-         => AnsiConsole
+             => AnsiConsole
                 .Status()
                 .Spinner(Spinner.Known.Arrow3)
                 .Start("Simulating ... ", _ => simulation.SimulateWithFullDeck(_nrOfHands).ToList());

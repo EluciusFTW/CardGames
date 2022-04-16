@@ -87,10 +87,10 @@ namespace CardGames.Poker.Simulations.Holdem
             return cards
                 .Concat(new[]
                 {
-                    _turn != default
+                    _turn is not null
                         ? _turn
                         : _dealer.DealCard(),
-                    _river != default
+                    _river is not null
                         ? _river
                         : _dealer.DealCard()
                 })

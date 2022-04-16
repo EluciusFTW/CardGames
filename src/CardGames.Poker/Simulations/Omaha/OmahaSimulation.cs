@@ -25,6 +25,12 @@ namespace CardGames.Poker.Simulations.Omaha
             return this;
         }
 
+        public OmahaSimulation WithPlayers(IEnumerable<OmahaPlayer> players)
+        {
+            players.ForEach(player => _players.Add(player));
+            return this;
+        }
+
         public OmahaSimulation WithFlop(IReadOnlyCollection<Card> flopCards)
         {
             if (flopCards.Count != 3)
@@ -86,10 +92,10 @@ namespace CardGames.Poker.Simulations.Omaha
             return cards
                 .Concat(new[]
                 {
-                    _turn != default
+                    _turn is not null
                         ? _turn
                         : _dealer.DealCard(),
-                    _river != default
+                    _river is not null
                         ? _river
                         : _dealer.DealCard()
                 })
