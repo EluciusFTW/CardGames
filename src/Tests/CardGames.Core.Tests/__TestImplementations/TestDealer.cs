@@ -2,13 +2,12 @@
 using CardGames.Core.Deck;
 using CardGames.Core.Random;
 
-namespace CardGames.Core.Tests.__TestImplementations
+namespace CardGames.Core.Tests.__TestImplementations;
+
+internal class TestDealer : Dealer<TestCard>
 {
-    internal class TestDealer : Dealer<TestCard>
+    public TestDealer(IDeck<TestCard> deck, IRandomNumberGenerator numberGenerator) 
+        : base(deck, numberGenerator)
     {
-        public TestDealer(IDeck<TestCard> deck, IRandomNumberGenerator numberGenerator) 
-            : base(deck, numberGenerator)
-        {
-        }
     }
 }

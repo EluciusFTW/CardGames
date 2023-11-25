@@ -1,8 +1,7 @@
-﻿namespace CardGames.Poker.Hands.Strength
+﻿namespace CardGames.Poker.Hands.Strength;
+
+public enum HandTypeStrengthRanking
 {
-    public enum HandTypeStrengthRanking
-    {
-        Classic,
-        ShortDeck
-    }
+    Classic,
+    ShortDeck
 }

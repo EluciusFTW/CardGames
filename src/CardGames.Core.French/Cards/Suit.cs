@@ -1,10 +1,9 @@
-﻿namespace CardGames.Core.French.Cards
+﻿namespace CardGames.Core.French.Cards;
+
+public enum Suit
 {
-    public enum Suit
-    {
-        Hearts,
-        Diamonds,
-        Spades,
-        Clubs,
-    }
+    Hearts,
+    Diamonds,
+    Spades,
+    Clubs,
 }

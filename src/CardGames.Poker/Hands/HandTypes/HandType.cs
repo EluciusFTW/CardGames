@@ -1,16 +1,15 @@
-﻿namespace CardGames.Poker.Hands.HandTypes
+﻿namespace CardGames.Poker.Hands.HandTypes;
+
+public enum HandType
 {
-    public enum HandType
-    {
-        Incomplete,
-        HighCard,
-        OnePair,
-        TwoPair,
-        Trips,
-        Straight,
-        Flush,
-        FullHouse,
-        Quads,
-        StraightFlush
-    }
+    Incomplete,
+    HighCard,
+    OnePair,
+    TwoPair,
+    Trips,
+    Straight,
+    Flush,
+    FullHouse,
+    Quads,
+    StraightFlush
 }

@@ -2,17 +2,16 @@
 using System;
 using System.Collections.Generic;
 
-namespace CardGames.Poker.Hands.DrawHands
+namespace CardGames.Poker.Hands.DrawHands;
+
+public abstract class FiveCardHand : HandBase
 {
-    public abstract class FiveCardHand : HandBase
+    protected FiveCardHand(IReadOnlyCollection<Card> cards)
+        : base(cards)
     {
-        protected FiveCardHand(IReadOnlyCollection<Card> cards)
-            : base(cards)
+        if (cards.Count != 5)
         {
-            if (cards.Count != 5)
-            {
-                throw new ArgumentException("A five card hand requires exactly 5 cards!");
-            }
+            throw new ArgumentException("A five card hand requires exactly 5 cards!");
         }
     }
 }

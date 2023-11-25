@@ -1,7 +1,6 @@
-﻿namespace CardGames.Core.Random
+﻿namespace CardGames.Core.Random;
+
+public interface IRandomNumberGenerator
 {
-    public interface IRandomNumberGenerator
-    {
-        public int Next(int upperBound);
-    }
+    public int Next(int upperBound);
 }
