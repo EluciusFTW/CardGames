@@ -27,15 +27,37 @@ public static class SerializationExtensions
         => CardDeck[Hash(card)];
 
     public static IReadOnlyCollection<Card> ToCards(this string cardsExpression)
-        => cardsExpression
-            .Split(' ')
-            .Select(expression => expression.ToCard())
-            .ToList();
+    {
+        if (cardsExpression.Length == 0) return [];
+
+        var remaining = cardsExpression.AsSpan();
+        List<Card> cards = [];
+        while (remaining.Length > 2)
+        {
+            cards.Add(new Card(remaining[1].ToSuit(), remaining[0].ToSymbol()));
+            remaining = remaining[3..];
+        }
+        cards.Add(new Card(remaining[1].ToSuit(), remaining[0].ToSymbol()));
+        return cards;
+    }
 
     public static string ToStringRepresentation(this IEnumerable<Card> cards)
-       => string.Join(" ", cards.OrderBy(card => -card.Value).Select(card => card.ToString()));
+       => string.Join(" ", cards.OrderByDescending(card => card.Value).Select(card => card.ToString()));
 
     public static Card ToCard(this string cardExpression)
+    {
+        if (cardExpression.Length != 2)
+        {
+            throw new ArgumentException($"{cardExpression} is not a valid representation of a card.");
+        }
+        var cardsSpan = cardExpression.AsSpan();
+        return new Card(cardsSpan[1].ToSuit(), cardsSpan[0].ToSymbol());
+    }
+
+    /// <summary>
+    /// Pre-span implementation which is much slower than the current one.
+    /// </summary>
+    public static Card ToCardObsolete(this string cardExpression)
     {
         var hash = Array.IndexOf(CardDeck, cardExpression);
 
@@ -43,4 +65,13 @@ public static class SerializationExtensions
             ? new Card(hash.ToSuit(), hash.ToValue())
             : throw new ArgumentException($"{cardExpression} is not a valid representation of a card.");
     }
+
+    /// <summary>
+    /// Pre-span implementation which is much slower than the current one.
+    /// </summary>
+    public static IReadOnlyCollection<Card> ToCardsObsolete(this string cardsExpression)
+        => cardsExpression
+            .Split(' ')
+            .Select(expression => expression.ToCardObsolete())
+            .ToList();
 }

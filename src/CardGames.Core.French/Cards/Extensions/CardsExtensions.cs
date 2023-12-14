@@ -59,8 +59,7 @@ public static class CardsExtensions
         => cards.HighestValueOfNFolds(3);
             
     public static bool ContainsValues(this IEnumerable<Card> cards, IEnumerable<int> valuesToContain)
-        => valuesToContain
-            .All(cards.Values().Contains);
+        => valuesToContain.All(cards.Values().Contains);
 
     public static bool ContainsValue(this IEnumerable<Card> cards, int value)
         => cards

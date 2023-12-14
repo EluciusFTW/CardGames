@@ -1,16 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>netstandard2.0</TargetFramework>
+		<TargetFramework>netstandard2.1</TargetFramework>
 		<LangVersion>latest</LangVersion>
-		<Version>1.0.0</Version>
+		<Version>2.0.0</Version>
 		<Authors>Guy Buss</Authors>
-		<Copyright>Copyright (c) Guy Buss 2022</Copyright>
+		<Copyright>Copyright (c) Guy Buss 2022-2023</Copyright>
 
 		<Title>French Cards for CardGames.Core</Title>
 		<Description>Implementation of the classical French card deck and card dealer for the CardGames.Core package.</Description>
 		<PackageTags>FrenchCard FrenchCards CardDeck Dealer CardGames Implementation</PackageTags>
-		<PackageReleaseNotes> Initial stable package release. </PackageReleaseNotes>
+		<PackageReleaseNotes> Span support, however, requires .NET Standard 2.1</PackageReleaseNotes>
 		<PackageId>EluciusFTW.CardGames.Core.French</PackageId>
 		<PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/EluciusFTW/CardGames</PackageProjectUrl>
