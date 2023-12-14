@@ -20,8 +20,7 @@ public static class EnumerableExtensions
             .ForEach(element => action(element.Item, element.Index));
 
     private static IEnumerable<(T Item, int Index)> Indexed<T>(this IEnumerable<T> source)
-        => source
-            .Select((item, index) => (item, index));
+        => source.Select((item, index) => (item, index));
 
     public static IEnumerable<IEnumerable<T>> Subsets<T>(this IEnumerable<T> source)
         => source != null
@@ -44,16 +43,20 @@ public static class EnumerableExtensions
 
         if (size <= 0 || source.Count() < size)
         {
-            return Enumerable.Empty<IEnumerable<T>>().ToList();
+            return [];
         }
 
         if (size == 1)
         {
-            return source.Select(item => new[] { item }).ToList();
+            return source
+                .Select(item => new[] { item })
+                .ToList();
         }
 
         var referenceElementAsSet = new[] { source.First() };
-        var remainder = source.Skip(1).ToList();
+        var remainder = source
+            .Skip(1)
+            .ToList();
 
         var setsWithoutReferenceElement = SubsetsOfSizeInternal(remainder, size - 1);
         var setsWithoutReferenceElementOfSameSize = SubsetsOfSizeInternal(remainder, size);
@@ -61,7 +64,9 @@ public static class EnumerableExtensions
         var setsWithReferenceElement = setsWithoutReferenceElement
             .Select(set => set.Concat(referenceElementAsSet).ToList());
 
-        return setsWithoutReferenceElementOfSameSize.Concat(setsWithReferenceElement).ToList();
+        return setsWithoutReferenceElementOfSameSize
+            .Concat(setsWithReferenceElement)
+            .ToList();
     }
 
     
@@ -69,11 +74,13 @@ public static class EnumerableExtensions
     {
         if (!source.Any())
         {
-            return new[] { Enumerable.Empty<T>() };
+            return [ Enumerable.Empty<T>() ];
         }
 
         var referenceElementAsSet = new[] { source.First() };
-        var remainder = source.Skip(1).ToList();
+        var remainder = source
+            .Skip(1)
+            .ToList();
 
         var setsWithoutReferenceElement = SubsetsInternal(remainder);
         var setsWithReferenceElement = setsWithoutReferenceElement.Select(set => set.Concat(referenceElementAsSet));
