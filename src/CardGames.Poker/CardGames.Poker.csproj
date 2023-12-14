@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -6,8 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="EluciusFTW.CardGames.Core" Version="1.0.0" />
-    <PackageReference Include="EluciusFTW.CardGames.Core.French" Version="1.0.0" />
+    <ProjectReference Include="..\CardGames.Core.French\CardGames.Core.French.csproj" />
+    <ProjectReference Include="..\CardGames.Core\CardGames.Core.csproj" />
   </ItemGroup>
 
 </Project>
