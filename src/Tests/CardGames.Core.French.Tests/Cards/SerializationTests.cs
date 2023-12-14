@@ -20,6 +20,22 @@ public class SerializationTests
         label.Should().Be(expected);
     }
 
+    [Fact]
+    public void Serializes_Multiple_Cards_In_Descending_Order()
+    {
+        var expectedCards = new[]
+        {
+            new Card(Suit.Hearts, Symbol.Deuce),
+            new Card(Suit.Hearts, Symbol.Seven),
+            new Card(Suit.Spades, Symbol.Jack),
+            new Card(Suit.Clubs, Symbol.King)
+        };
+
+        var cardString = expectedCards.ToStringRepresentation();
+
+        cardString.Should().Be("Kc Js 7h 2h");
+    }
+
     [Theory]
     [InlineData("3h", Suit.Hearts, Symbol.Three)]
     [InlineData("8s", Suit.Spades, Symbol.Eight)]
