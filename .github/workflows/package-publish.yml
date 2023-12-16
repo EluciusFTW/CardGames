@@ -1,0 +1,52 @@
+name: spectrecoff-publish
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - "src/CardGames.Core.Benchmarks/**"
+      - "src/CardGames.PlayGround/**"
+      - "src/CardGames.PlayGround.Runner/**"
+      - "src/Tests/**"
+      - "README.md"
+      - "sample/**"
+      - ".github/**"
+      - ".vscode/**"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - uses: dotnet/nbgv@master
+        id: nbgv
+        with:
+          setCommonVars: true
+
+      - run: "echo 'PackageVer: ${{ steps.nbgv.outputs.NuGetPackageVersion }}'"
+
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 8.0.x
+
+      # - name: Restore
+      #   run: dotnet restore
+
+      - name: Build CardGames.Core
+        run: dotnet build src/CardGames.Core/*.csproj --configuration Release # --no-restore
+
+      - name: Build CardGames.Core.French
+        run: dotnet build src/CardGames.Core.French/*.csproj --configuration Release # --no-restore
+
+      - name: Pack CardGames.Core
+        run: dotnet pack -c Release -o . src/CardGames.Core/*.csproj
+
+      - name: Pack CardGames.Core.French
+        run: dotnet pack -c Release -o . src/CardGames.Core.French/*.csproj
+
+      - name: Publish all packages
+        run: dotnet nuget push *.nupkg -k ${{secrets.NUGET_API_KEY}} -s https://api.nuget.org/v3/index.json
