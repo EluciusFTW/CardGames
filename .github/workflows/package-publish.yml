@@ -1,4 +1,4 @@
-name: spectrecoff-publish
+name: package-publish
 
 on:
   push:
