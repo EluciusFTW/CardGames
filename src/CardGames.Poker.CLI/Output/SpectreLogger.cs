@@ -27,7 +27,6 @@ internal class SpectreLogger
     
     public SpectreLogger()
     {
-        // Console.OutputEncoding = System.Text.Encoding.UTF8;
         Console.OutputEncoding = System.Text.Encoding.Unicode;
     }
 
@@ -138,7 +137,7 @@ internal class SpectreLogger
         }
     }
 
-    private IRenderable ToBarChart(ValueCollectionArtefact list)
+    private BarChart ToBarChart(ValueCollectionArtefact list)
     {
         var bar = new BarChart()
             .Width(80)
@@ -148,7 +147,7 @@ internal class SpectreLogger
         return bar;
     }
 
-    private static IRenderable ToTable(TableArtefact table)
+    private static Table ToTable(TableArtefact table)
     {
         var output = new Table();
 

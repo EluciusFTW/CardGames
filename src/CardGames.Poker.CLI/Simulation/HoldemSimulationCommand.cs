@@ -4,7 +4,6 @@ using CardGames.Poker.CLI.Output;
 using CardGames.Poker.Simulations.Holdem;
 using Spectre.Console;
 using Spectre.Console.Cli;
-using System.Linq;
 
 namespace CardGames.Poker.CLI.Simulation;
 
@@ -16,23 +15,25 @@ internal class HoldemSimulationCommand : Command<SimulationSettings>
     {
         Logger.LogApplicationStart();
 
-        var simulation = ConfigureSimulation();
+        var simulation = CreateSimulation();
         var numberOfHands = settings.NumberOfHands == default
             ? AnsiConsole.Ask<int>("How many hands?")
             : settings.NumberOfHands;
 
-        var result = AnsiConsole.Status()
+        var result = AnsiConsole
+            .Status()
             .Spinner(Spinner.Known.Arrow3)
             .Start("Simulating ... ", ctx => simulation.SimulateWithFullDeck(numberOfHands));
 
-        AnsiConsole.Status()
+        AnsiConsole
+            .Status()
             .Spinner(Spinner.Known.Arrow3)
             .Start("Evaluating ... ", ctx => PrintResults(result));
 
         return 0;
     }
 
-    private static HoldemSimulation ConfigureSimulation()
+    private static HoldemSimulation CreateSimulation()
     {
         var simulation = new HoldemSimulation();
         do
@@ -43,7 +44,7 @@ internal class HoldemSimulationCommand : Command<SimulationSettings>
 
         Logger.Paragraph("Add Details");
         var flop = Prompt.PromptForCards("Flop: ", 3, false);
-        if (flop.Any())
+        if (flop.Count > 0)
         {
             simulation.WithFlop(flop);
             var turn = Prompt.PromptForCard("Turn: ");
@@ -72,5 +73,5 @@ internal class HoldemSimulationCommand : Command<SimulationSettings>
                 EvaluationArtefact.Equity(result.Hands),
                 EvaluationArtefact.MadeHandDistribution(result.Hands),
             }
-            .ForEach(artefact => Logger.LogArtefact(artefact));
+            .ForEach(Logger.LogArtefact);
 }

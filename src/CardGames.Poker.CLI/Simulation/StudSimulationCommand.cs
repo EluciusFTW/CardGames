@@ -20,11 +20,13 @@ internal class StudSimulationCommand : Command<SimulationSettings>
             ? AnsiConsole.Ask<int>("How many hands?")
             : settings.NumberOfHands;
 
-        var result = AnsiConsole.Status()
+        var result = AnsiConsole
+            .Status()
             .Spinner(Spinner.Known.Arrow3)
             .Start("Simulating ... ", ctx => simulation.Simulate(numberOfHands));
 
-        AnsiConsole.Status()
+        AnsiConsole
+            .Status()
             .Spinner(Spinner.Known.Arrow3)
             .Start("Evaluating ... ", ctx => PrintResults(result));
 
@@ -65,5 +67,5 @@ internal class StudSimulationCommand : Command<SimulationSettings>
                 EvaluationArtefact.Equity(result.Hands),
                 EvaluationArtefact.MadeHandDistribution(result.Hands),
             }
-            .ForEach(artefact => Logger.LogArtefact(artefact));
+            .ForEach(Logger.LogArtefact);
 }

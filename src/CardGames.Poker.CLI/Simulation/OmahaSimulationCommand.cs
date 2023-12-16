@@ -16,8 +16,8 @@ internal class OmahaSimulationCommand : Command<SimulationSettings>
     private static readonly SpectreLogger Logger = new();
 
     private int _nrOfHands;
-    private IList<OmahaPlayer> _players = new List<OmahaPlayer>();
-    private IReadOnlyCollection<Card> _flop = new List<Card>();
+    private readonly List<OmahaPlayer> _players = [];
+    private IReadOnlyCollection<Card> _flop = [];
     private Card _turn = default;
 
     public override int Execute(CommandContext context, SimulationSettings settings)
@@ -36,10 +36,9 @@ internal class OmahaSimulationCommand : Command<SimulationSettings>
 
     private OmahaSimulation CreateSimulation()
     {
-        var simulation = new OmahaSimulation()
-            .WithPlayers(_players);
+        var simulation = new OmahaSimulation().WithPlayers(_players);
 
-        if (_flop.Any())
+        if (_flop.Count > 0)
         {
             simulation.WithFlop(_flop);
         }
@@ -73,7 +72,7 @@ internal class OmahaSimulationCommand : Command<SimulationSettings>
 
         Logger.Paragraph("Add Details");
         var flop = Prompt.PromptForCards("Flop: ", 3, false);
-        if (flop.Any())
+        if (flop.Count > 0)
         {
             _flop = flop;
             _turn = Prompt.PromptForCard("Turn: ");
@@ -100,5 +99,5 @@ internal class OmahaSimulationCommand : Command<SimulationSettings>
                 EvaluationArtefact.Equity(result),
                 EvaluationArtefact.MadeHandDistribution(result),
             }
-            .ForEach(artefact => Logger.LogArtefact(artefact));
+            .ForEach(Logger.LogArtefact);
 }

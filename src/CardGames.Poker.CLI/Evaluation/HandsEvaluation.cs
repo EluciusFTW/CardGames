@@ -1,5 +1,4 @@
-﻿using CardGames.Poker.CLI.Artefact;
-using CardGames.Poker.Hands;
+﻿using CardGames.Poker.Hands;
 using CardGames.Poker.Hands.HandTypes;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,48 +11,37 @@ public static class HandsEvaluation
         where THand : HandBase
         => hands.First().Keys;
 
-    public static IEnumerable<(string Name, int Wins, decimal WinPercentage)> GroupByWins<THand>(
+    public static IEnumerable<WinDistribution> GroupByWins<THand>(
         IReadOnlyCollection<IDictionary<string, THand>> hands)
         where THand : HandBase
         => hands
-            .Select(playerHands => playerHands.OrderByDescending(hand => hand.Value.Strength).First())
-            .GroupBy(playerHands => playerHands.Key)
-            .Select(grp => (grp.Key, grp.Count(), (decimal)grp.Count() / hands.Count))
-            .OrderBy(res => res.Item2);
+            .Select(round => round.MaxBy(hand => hand.Value.Strength))
+            .GroupBy(hand => hand.Key)
+            .Select(handsOfPlayer => new WinDistribution(handsOfPlayer.Key, handsOfPlayer.Count(), hands.Count))
+            .OrderBy(triple => triple.Wins);
 
-    public static IDictionary<string, IEnumerable<(HandType Type, int Occurences, decimal Frequency)>> AllMadeHandDistributions<THand>(
+    public static IDictionary<string, IEnumerable<TypeDistribution>> AllMadeHandDistributions<THand>(
         IReadOnlyCollection<IDictionary<string, THand>> hands)
         where THand : HandBase
-        => GetPlayers(hands)
-            .ToDictionary(player => player, player => MadeHandDistributionOf(hands, player));
+        => GetPlayers(hands).ToDictionary(player => player, player => MadeHandDistributionOf(hands, player));
 
-    public static IEnumerable<(HandType Type, int Occurences, decimal Frequency)> MadeHandDistributionOf<THand>(
+    public static IEnumerable<TypeDistribution> MadeHandDistributionOf<THand>(
         IReadOnlyCollection<IDictionary<string, THand>> hands,
         string name)
         where THand : HandBase
         => hands
-            .Select(playerHands => playerHands[name].Type)
+            .Select(round => round[name].Type)
             .GroupBy(type => type)
-            .Select(grp => (grp.Key, grp.Count(), (decimal)grp.Count() / hands.Count))
-            .OrderByDescending(grp => grp.Item2);
+            .Select(grp => new TypeDistribution(grp.Key, grp.Count(), hands.Count))
+            .OrderByDescending(grp => grp.Occurrences);
 }
 
-public static class EvaluationArtefact
+public sealed record TypeDistribution(HandType Type, int Occurrences, int Total)
 {
-    public static IReportArtefact Equity<THand>(IReadOnlyCollection<IDictionary<string, THand>> hands)
-        where THand : HandBase
-        => new TableArtefact(
-            new[] { "Name", "Times Won", "Win %" },
-            HandsEvaluation
-                .GroupByWins(hands)
-                .Select(triple => new[] { triple.Name, $"{triple.Wins}", $"{triple.WinPercentage:P2}" }));
+    public decimal Frequency => (decimal)Occurrences / Total;
+}
 
-    public static IReportArtefact MadeHandDistribution<THand>(IReadOnlyCollection<IDictionary<string, THand>> hands)
-        where THand : HandBase
-        => new CompositeArtefact(
-            HandsEvaluation
-                .AllMadeHandDistributions(hands)
-                .Select(playerDistribution => new TableArtefact(
-                    new[] { $"{ playerDistribution.Key} made", "Times", "Frequency" },
-                    playerDistribution.Value.Select(triple => new[] { $"{triple.Type}", $"{triple.Occurences}", $"{triple.Frequency:P2}" }))));
+public sealed record WinDistribution(string Name, int Wins, int Total)
+{
+    public decimal Percentage => (decimal)Wins / Total;
 }
