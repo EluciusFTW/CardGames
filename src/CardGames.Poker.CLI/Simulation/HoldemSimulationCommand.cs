@@ -1,6 +1,7 @@
 ﻿using CardGames.Core.Extensions;
 using CardGames.Poker.CLI.Evaluation;
 using CardGames.Poker.CLI.Output;
+using CardGames.Poker.Evaluation;
 using CardGames.Poker.Simulations.Holdem;
 using Spectre.Console;
 using Spectre.Console.Cli;
@@ -70,8 +71,12 @@ internal class HoldemSimulationCommand : Command<SimulationSettings>
     private static void PrintResults(HoldemSimulationResult result)
         => new[]
             {
-                EvaluationArtefact.Equity(result.Hands),
-                EvaluationArtefact.MadeHandDistribution(result.Hands),
+                HandsEvaluation
+                    .GroupByWins(result.Hands)
+                    .ToArtefact(),
+                HandsEvaluation
+                    .AllMadeHandDistributions(result.Hands)
+                    .ToArtefact()
             }
             .ForEach(Logger.LogArtefact);
 }

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CardGames.Poker.Simulations.Omaha;
 using CardGames.Core.French.Cards;
+using CardGames.Poker.Evaluation;
 
 namespace CardGames.Poker.CLI.Simulation;
 
@@ -93,11 +94,15 @@ internal class OmahaSimulationCommand : Command<SimulationSettings>
         return new OmahaPlayer(name, holeCards);
     }
 
-    private static void PrintResults(IReadOnlyCollection<IDictionary<string, OmahaHand>> result)
+    private static void PrintResults(IReadOnlyCollection<IDictionary<string, OmahaHand>> hands)
         => new[]
             {
-                EvaluationArtefact.Equity(result),
-                EvaluationArtefact.MadeHandDistribution(result),
+                HandsEvaluation
+                    .GroupByWins(hands)
+                    .ToArtefact(),
+                HandsEvaluation
+                    .AllMadeHandDistributions(hands)
+                    .ToArtefact()
             }
             .ForEach(Logger.LogArtefact);
 }

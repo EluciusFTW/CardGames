@@ -4,6 +4,7 @@ using Spectre.Console;
 using CardGames.Poker.CLI.Evaluation;
 using CardGames.Poker.CLI.Output;
 using CardGames.Poker.Simulations.Stud;
+using CardGames.Poker.Evaluation;
 
 namespace CardGames.Poker.CLI.Simulation;
 
@@ -64,8 +65,12 @@ internal class StudSimulationCommand : Command<SimulationSettings>
     private static void PrintResults(StudSimulationResult result)
         => new[]
             {
-                EvaluationArtefact.Equity(result.Hands),
-                EvaluationArtefact.MadeHandDistribution(result.Hands),
+                HandsEvaluation
+                    .GroupByWins(result.Hands)
+                    .ToArtefact(),
+                HandsEvaluation
+                    .AllMadeHandDistributions(result.Hands)
+                    .ToArtefact()
             }
             .ForEach(Logger.LogArtefact);
 }

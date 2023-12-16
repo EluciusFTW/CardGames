@@ -3,7 +3,7 @@ using CardGames.Poker.Hands.HandTypes;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace CardGames.Poker.CLI.Evaluation;
+namespace CardGames.Poker.Evaluation;
 
 public static class HandsEvaluation
 {
