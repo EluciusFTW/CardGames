@@ -1,13 +1,8 @@
 ﻿using System;
 using BenchmarkDotNet.Running;
+using CardGames.Poker.Benchmarks;
 
-namespace CardGames.Poker.Benchmarks;
-
-public class Program
-{
-    static void Main()
-    {
-        BenchmarkRunner.Run<HoldemSimulationBenchmarks>();
-        Console.ReadKey();
-    }
-}
+BenchmarkRunner.Run<HoldemSimulationBenchmarks>();
+BenchmarkRunner.Run<EvaluationsBenchmarks>();
+        
+Console.ReadKey();
