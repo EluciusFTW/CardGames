@@ -1,16 +1,29 @@
 # CardGames
-### Introduction
+- [Introduction](#introduction)
+- [CardGames.Core](#cardgamescore)
+  * [Overview](#overview)
+  * [Card](#card)
+  * [Deck](#deck)
+  * [Dealer](#dealer)
+- [CardGames.Core.French](#cardgamescorefrench)
+- [CardGames.Poker](#cardgamespoker)
+- [Benchmarks](#benchmarks)
+- [License](#license)
+- [Versioning](#versioning)
+- [Feedback and Contributing](#feedback-and-contributing)
+
+[![CI Build](https://github.com/EluciusFTW/CardGames/actions/workflows/CI.yml/badge.svg)](https://github.com/EluciusFTW/CardGames/actions/workflows/CI.yml)
+
+# Introduction
 After writing simulations and tools for card games (poker in particular) in the last years, I have decided to take a step back, sort through the code bases, clean up here and there, and distill out small, reusable packages that hopefully can be useful for the open source community.
 
 ### About the project
-I assume this project will be slow, because of several reasons. First of all, it is a pure leisure project. Secondly, because I value design. I try to model the entities and their apis as closely as possible to the real world concepts they represent (albeit adding some convenience apis if they are very useful).
-
-I value code quality and readability a lot as well. I'll spend lots of time rewriting algorithmically simple things if I feel I can express them even cleaner. And finally, I also am a big believer in unit tests, especially when writing libraries. You put yourself in the role of a client and try to interact with the entities the library provides. They not only provide confidence that everything works the way it should, they make you really think about the design an usability of the entities the library provides. 
+I assume this project will be slow, because of several reasons. First of all, it is a _pure leisure project_. Secondly, because I value design. I try to model the entities and their apis as closely as possible to the real world concepts they represent (albeit adding some convenience apis if they are very useful). I value code quality and readability a lot as well. I'll spend lots of time rewriting algorithmically simple things if I feel I can express them even cleaner, or more performantly. 
 
 # CardGames.Core
-Available at [Nuget: EluciusFTW.CardGames.Core](https://www.nuget.org/packages/EluciusFTW.CardGames.Core/)
+Available at Nuget: [EluciusFTW.CardGames.Core](https://www.nuget.org/packages/EluciusFTW.CardGames.Core/)
 
-## Overview
+### Overview
 There are thousands of different [card games](https://en.wikipedia.org/wiki/Card_game), with many different cards and collections of cards, with different rules and purposes. 
 
 In this package, we tried to follow a domain-driven approach to card games in general<sup>1</sup>. 
@@ -18,13 +31,13 @@ It contains the basic entities needed for such a game: _Cards_ (duh!), _Card dec
 
 <sup>1</sup> Actually, up to abuse of language, any game of chance that contains a finite set of possibilities can be modelled using this package, e.g., we can interpret a die as a deck of six cards called: 1,2,3,4,5,6. We can implement a `DiceDealer` who 'shuffles the deck' (i.e. returns the dealt/rolled card/value back to the deck immediately) after dealing a card (rolling the die).
 
-## Card
+### Card
 The most elemental part of a card game is the card. There is actually nothing universal that describes a card, except for it being detemined by it's content. So in all later entities the card will be represented by a generic type `TCard`, with the constraint that it is a **class**. 
 
 > NOTE: Until recently, `TCard` was generically constrained to be a **struct**. However, I have decided to switch over to **class**, as in all my use-cases, the gain from passing-by-reference as default (in terms of performance) was higher than the benefit of creation on the stack, as they are often passed around into other methods, collections, etc.  Another reason is that the memory allocation needed to create an instance depends heavily on implementation, and might be big, depending on your card deck and game (think: Cards in a deck builder game with lot's of properties).
 
-## Deck
-The collection of all different cards, in a bunch, is called a deck.
+### Deck
+The finite collection of all different cards, in a bunch, is called a deck.
 
 The package provides a generic interface for a deck which holds cards of the generic type `TCard`
 ```cs
@@ -38,7 +51,7 @@ public interface IDeck<TCard> where TCard : class
 };
 ````
 
-## Dealer
+### Dealer
 The dealer is the entity handling the deck. Instead of only providing an interface like for the deck, the library provides a generic implementation of a dealer, which can be specified (i.e., derived from) in order to add more specific functionality:
 ```cs
 public class Dealer<TCard> where TCard : class
@@ -61,13 +74,12 @@ public interface IRandomNumberGenerator
 and a standand implementation (which is just a wrapper holding an instance of `System.Random`).
 
 # CardGames.Core.French
-Available at [Nuget: EluciusFTW.CardGames.Core.French](https://www.nuget.org/packages/EluciusFTW.CardGames.Core.French/)
+Available at Nuget: [EluciusFTW.CardGames.Core.French](https://www.nuget.org/packages/EluciusFTW.CardGames.Core.French/)
 
-## Overview
 This library is an implementation of the core library for the arguably the most well-known playing card: the [french-suited playing card](https://en.wikipedia.org/wiki/French-suited_playing_cards).
 
-## French-suited playing cards
-A french-suited playing card is characterized by two properties: The _Suit_ (Diamonds, Hearts, Clubs and Spades) and the _Symbol_ (Deuce, Three ... King, Ace), both of which are represented as enums in the library. The _Value_ of the card is a numeric value in bijective relation to it's symbol:
+### French-suited playing cards
+A french-suited playing card is characterized by two properties: The _suit_ (Diamonds, Hearts, Clubs and Spades) and the _symbol_ (Deuce, Three ... King, Ace), both of which are represented as enums in the library. The _value_ of the card is a numeric value betwen 2 and 14 in bijective relation to it's symbol:
 ```cs
 // Using the Suit and Symbol enum
 var card = new Card(Suit.Hearts, Symbol.Deuce);
@@ -76,14 +88,14 @@ var card = new Card(Suit.Hearts, Symbol.Deuce);
 var card = new Card(Suit.Hearts, 8);
 ````
 
-### Serialization and Deserilaization
+### Serialization and Deserialization
 There are conventional string representations for these cards, which we support via extensions (resp. implementing the `ToString()` method):
 ```cs
 // String extension expecting the format {symbol char}{suit char}
 var card = "Jc".ToCard();
 var serializedCard = card.ToString() // equals "Jc" again.
 
-// String extension expecting the one or more cards separated by a space
+// String extension expecting one or more cards separated by a space
 var cards = "2h 5d Qs".ToCards();
 var serializedCards = cards.ToStringRepresentation(); // equals "2h 5d Qs" again.
 ````
@@ -116,7 +128,7 @@ int ValueOfBiggestQuads(this IEnumerable<Card> cards)
 ## French decks
 Of course, as we have provided the french-suited card, we also provide some decks containing these cards in this library.
 
-First of all, there is a base class which provides a few more useful methods already using the fact that a french card has a `Symbol` (resp. `Value`) and a `Suit`. The only thing an implementing class must provide is the collection of _all cards_ in the deck:
+First of all, there is a base class which provides a few more useful methods already using the fact that a french card has a `symbol` (resp. `value`) and a `suit`. The only thing an implementing class must provide is the collection of _all cards_ in the deck:
 ```cs
 public abstract class FrenchDeck : IDeck<Cards.French.Card>
 {
@@ -150,9 +162,14 @@ _ = dealer.TryDealCardOfSuit(Suit.Spades, out var card);
 This is very useful and increases performance in simulation scenarios where certain specific situations have to be recreated over and over.
 
 # CardGames.Poker
+This library utilizes the _French cards_ and proceeds to model Poker variants. It is not yet published as a package as it is not yet mature enough.
 
 ## Hands
-The library contains domain models for hands in: 5-card draw, Holdem, Omaha and Stud. 
+The library contains domain models for hands in these poker disciplines:
+ - 5-card draw
+ - Holdem 
+ - Omaha
+ - Stud 
 
 The Holdem and Omaha hands derive from a more generic hand model called `CommunityCardsHand`, which can be used to model any kind of community card hand (any number of community cards, any number of hole cards, any requirement how many of them have to be used for a hand, and how many must at least be used. So in these parameters, a Holdem hand is (3-5, 2, 0, 2) and a Omaha hand (3-5, 4, 2, 2)). So using this as a basis, it is easy to implement, e.g., 5-card PLO and other lesser known variants.
 
@@ -199,11 +216,19 @@ If you want to play around with these simulations, there is a console program in
 
 The simulation result classes contain a complete collection of all run hands, as well as some predefined queries and aggregations, which can easily be extendend and customized due to the fact that the full collection of hands is available. 
 
-Here is a simple printout of the above Holdem simulation:
+Here is a simple printout of the above Stud simulation:
 ![Screenshot of Stud Simulation](./sample/stud-simulation-screenshot.png)
 
-Here is a simple printout of the above Stud simulation:
+Here is a simple printout of the above Holdem simulation:
 ![Screenshot of Holdem Simulation](./sample/holdem-simulation-screenshot.png)
+
+## Benchmarks
+This repository also contians two benchmark projects: one for the core packages, one for the poker simulations. These are only meant to be utilities during development in order to test the implementations for their performance, resp. to prevent introduction of performance regressions. Once stable enough, baseline benchmarks _might be included_ in the documentation and in the workflows.
+
+## Versioning
+We have switched from manual semantic versioning to using [NerdBank.GitVersioning](https://github.com/dotnet/Nerdbank.GitVersioning) and follow the version scheme: `<major>.<minor>.<git-depth>` for out releases. All packages in this repository will have synchronized version numbers.
+
+> <b>Note</b>: In particular, the _third number_ in the version does not have the same meaning as the patches in SemVer. Increments in that number may contain breaking changes, in contrast to patch versions in SemVer.
 
 ## Feedback and Contributing
 All feedback welcome!
