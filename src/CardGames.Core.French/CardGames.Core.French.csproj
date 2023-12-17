@@ -20,7 +20,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="EluciusFTW.CardGames.Core" Version="2.0.0" />
+	  <PackageReference Include="EluciusFTW.CardGames.Core" Version="2.0.4" />
 	  <PackageReference Include="Nerdbank.GitVersioning" Version="3.6.133">
 	    <PrivateAssets>all</PrivateAssets>
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

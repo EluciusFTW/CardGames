@@ -11,7 +11,7 @@ namespace CardGames.Poker.Simulations.Holdem;
 public class HoldemSimulation
 {
     private FrenchDeckDealer _dealer;
-    private IList<HoldemPlayer> _players = new List<HoldemPlayer>();
+    private readonly List<HoldemPlayer> _players = new();
     private IReadOnlyCollection<Card> _flop = new List<Card>();
     private Card _turn;
     private Card _river;
@@ -68,14 +68,14 @@ public class HoldemSimulation
         return new HoldemSimulationResult(nrOfHands, results.ToList());
     }
 
-    private IDictionary<string, HoldemHand> PlayHand()
+    private Dictionary<string, HoldemHand> PlayHand()
     {
         _dealer.Shuffle();
         RemoveKnownCardsFromDeck();
         DealMissingHoleCards();
         var communityCards = DealCommunityCards();
 
-        return _players.ToDictionary(player => player.Name, p => new HoldemHand(p.Cards.ToList(), communityCards));
+        return _players.ToDictionary(player => player.Name, player => new HoldemHand(player.Cards.ToList(), communityCards));
     }
 
     private IReadOnlyCollection<Card> DealCommunityCards()

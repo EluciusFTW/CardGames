@@ -10,7 +10,10 @@ public class HoldemHandTests
 {
     [Theory]
     [InlineData("2s 5d", "8d Js Kc 5c 5h", HandType.Trips)]
+    [InlineData("2s 6d", "5d Js Kc 5c 5h", HandType.Trips)]
     [InlineData("2s 2d", "8d Js Kc 5c 5h", HandType.TwoPair)]
+    [InlineData("Qs 2d", "8d Js Qc 5c 5h", HandType.TwoPair)]
+    [InlineData("Qs 5d", "8d Js Qc 2c 5h", HandType.TwoPair)]
     [InlineData("2s 2d", "5d Js Kc 5c 5h", HandType.FullHouse)]
     [InlineData("2s 2h", "5d Jh Kh 6h 5h", HandType.Flush)]
     [InlineData("2s 2c", "7h Jh Kh 6h 5h", HandType.Flush)]
