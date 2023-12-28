@@ -8,21 +8,19 @@ namespace CardGames.Core.French.Decks;
 
 public abstract class FrenchDeck : IDeck<Card>
 {
-    private IList<Card> _cardsOut
-        = new List<Card>();
+    private List<Card> _cardsOut = [];
 
     private Card this[int index]
          => CardsLeftInternal()
             .ToArray()[index];
     
     private IEnumerable<Card> CardsLeftInternal() 
-        => Cards()
-            .Except(_cardsOut);
+        => Cards.Except(_cardsOut);
 
     public int NumberOfCardsLeft()
-        => Cards().Count - _cardsOut.Count;
+        => Cards.Count - _cardsOut.Count;
 
-    protected abstract IReadOnlyCollection<Card> Cards();
+    protected abstract IReadOnlyCollection<Card> Cards { get; }
     
     public IReadOnlyCollection<Card> CardsLeft()
         => CardsLeftInternal()
@@ -41,7 +39,7 @@ public abstract class FrenchDeck : IDeck<Card>
 
     public Card GetSpecific(Card card)
     {   
-        if (!Cards().Contains(card))
+        if (!Cards.Contains(card))
         {
             throw new ArgumentException($"The card {card} is not part of the deck at all!");
         }
@@ -62,5 +60,5 @@ public abstract class FrenchDeck : IDeck<Card>
     }
 
     public void Reset()
-        => _cardsOut = new List<Card>();
+        => _cardsOut.Clear();
 }

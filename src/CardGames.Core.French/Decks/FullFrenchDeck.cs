@@ -4,7 +4,7 @@ using CardGames.Core.French.Cards;
 
 namespace CardGames.Core.French.Decks;
 
-public class FullFrenchDeck : FrenchDeck
+public sealed class FullFrenchDeck : FrenchDeck
 {
     private readonly IReadOnlyCollection<Card> _cards
         = Enumerable
@@ -17,5 +17,5 @@ public class FullFrenchDeck : FrenchDeck
             .Range(0, 4)
             .Select(suit => new Card((Suit)suit, value));
 
-    protected override IReadOnlyCollection<Card> Cards() => _cards;
+    protected override IReadOnlyCollection<Card> Cards => _cards;
 }
