@@ -1,11 +1,10 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFramework>netstandard2.1</TargetFramework>
 		<LangVersion>latest</LangVersion>
 		<Authors>Guy Buss</Authors>
-		<Copyright>Copyright (c) Guy Buss 2022-2023</Copyright>
-
+		<Copyright>Copyright (c) Guy Buss 2022-2024</Copyright>
 		<Title>French Cards for CardGames.Core</Title>
 		<Description>Implementation of the classical French card deck and card dealer for the CardGames.Core package.</Description>
 		<PackageTags>FrenchCard FrenchCards CardDeck Dealer CardGames Implementation</PackageTags>
