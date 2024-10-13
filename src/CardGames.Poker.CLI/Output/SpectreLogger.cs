@@ -4,7 +4,6 @@ using System.Linq;
 using CardGames.Core.Extensions;
 using CardGames.Poker.CLI.Artefact;
 using Spectre.Console;
-using Spectre.Console.Rendering;
 
 namespace CardGames.Poker.CLI.Output;
 
@@ -89,9 +88,8 @@ internal class SpectreLogger
 
     private void Lined(string line, string style, Justify justify = Justify.Left)
     {
-        var rule = new Rule($"[{style}]{line}[/]")
-        {
-            Alignment = justify
+        var rule = new Rule($"[{style}]{line}[/]"){
+            Justification = justify
         };
         AnsiConsole.Write(rule);
     }
@@ -102,7 +100,7 @@ internal class SpectreLogger
     {
         AnsiConsole.Write(
             new FigletText(title)
-                .LeftAligned()
+                .LeftJustified()
                 .Color(Color.Green));
         AnsiConsole.Write(new Rule());
         lines.ForEach(line => Log(line, "green"));
